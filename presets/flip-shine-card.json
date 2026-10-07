@@ -1,0 +1,38 @@
+{
+  "id": "flip-shine-card",
+  "name": "双面翻卡扫光",
+  "composition": "FlipShineCardDemo",
+  "params": {
+    "centerX": 1290,
+    "centerY": 560,
+    "cardWidth": 460,
+    "cardHeight": 660,
+    "perspective": 2000,
+    "radius": 24,
+    "direction": "left",
+    "enterSeconds": 0.35,
+    "frontHoldSeconds": 0.85,
+    "flipSeconds": 0.4,
+    "shineEnabled": true,
+    "shineDelaySeconds": 1.25,
+    "shineSeconds": 0.6,
+    "endHoldSeconds": 0.8,
+    "exitSeconds": 0.35,
+    "shineIntensity": 0.5,
+    "shineWidth": 0.45,
+    "shineAngle": -25,
+    "flipEasing": [
+      0.4,
+      0,
+      0.2,
+      1
+    ]
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 4.6,
+  "durationInFrames": 138
+}

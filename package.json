@@ -35,6 +35,7 @@
     "render:book": "remotion render src/index.ts FoldPageAlbumDemo previews/fold-page-album.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:aperture": "remotion render src/index.ts CenterApertureFlashDemo previews/center-aperture-flash.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:collage": "remotion render src/index.ts LayeredCollagePosterDemo previews/layered-collage-poster.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
-    "render:cloudwipe": "remotion render src/index.ts TornPaperCloudWipeDemo previews/torn-paper-cloud-wipe.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
+    "render:cloudwipe": "remotion render src/index.ts TornPaperCloudWipeDemo previews/torn-paper-cloud-wipe.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:flipshine": "remotion render src/index.ts FlipShineCardDemo previews/flip-shine-card.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }

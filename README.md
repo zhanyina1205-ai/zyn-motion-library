@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-十二个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**与**撕纸云朵擦镜**。
+十三个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**、**撕纸云朵擦镜**与**双面翻卡扫光**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo` 或 `TornPaperCloudWipeDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo`、`TornPaperCloudWipeDemo` 或 `FlipShineCardDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -27,6 +27,7 @@ npm run render:book
 npm run render:aperture
 npm run render:collage
 npm run render:cloudwipe
+npm run render:flipshine
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -476,3 +477,40 @@ const Transition = () => <TornPaperCloudWipe {...options}
 总时长 = 前景停留 + 擦镜 + 后景停留，无额外转场重叠。在擦镜 48% 时完成覆盖、50% 切换前后幕、55% 开始移出，两个轮廓在中点重叠，roughness 范围内保持覆盖。两幕占同一个满幅容器，在中点切换；需持续播放的媒体时间和音频应在外层独立编排，避免依赖切换挂载保持其状态。
 
 纸云是确定性的波形边缘多边形，近似参考撕纸轮廓与云朵遮挡，没有复用原片材质。accent 使用透明 PNG、SVG 或 React 图形；公开 Demo 为自绘热气球。像素参数基于 Composition，其他画幅可调装饰尺寸和中心。预设见 `presets/torn-paper-cloud-wipe.json`，Demo 可调擦镜时长、粗糙度、方向并自动计算时长，运行 `npm run render:cloudwipe` 导出。
+
+
+## 13 · 双面翻卡扫光
+
+`FlipShineCard` 让一张正反双面的卡片围绕居中竖轴翻转 180°，在侧面处交接可见面；背面落稳停留后，一条宽而柔的斜向光带从左向右扫过。与多张叠卡轮流向前翻、沿书脊展开的折页不同，此镜头固定同一张卡片的位置和尺寸。公开 Demo 使用通用花园 SVG，4.6 秒 / 138 帧，1920×1080 / 30fps，包含入场和退出。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {FlipShineCard, flipShineCardDurationSeconds} from './motions';
+const options = {flipSeconds: .4, direction: 'left' as const, shineEnabled: true};
+const Scene = () => <FlipShineCard {...options}
+  front={<div style={{width:'100%',height:'100%',background:'#e9e0ef'}}>?</div>}
+  back={<CanvasImage src={staticFile('images/photo.jpg')}
+    style={{width:'100%',height:'100%',objectFit:'cover'}}/>}/>;
+// 总帧数 = Math.ceil(flipShineCardDurationSeconds(options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| front / back | 必填 | React 视觉内容，正面 / 背面；在卡片内裁切 |
+| centerX / centerY | 画布中心 | px，卡片中心；Demo 为 1290 / 560 |
+| cardWidth / cardHeight | 460 / 660 | px，卡片整体尺寸 |
+| perspective / radius | 2000 / 24 | px，透视距离 / 圆角半径 |
+| direction | left | left 为负 Y 轴旋转，right 为正 Y 轴旋转，均转 180° |
+| enterSeconds / frontHoldSeconds | 0.35 / 0.85 | 秒，入场与翻转前停留；入场为 24px 浮入和淡入 |
+| flipSeconds / flipEasing | 0.4 / [0.4,0,0.2,1] | 秒 / 贝塞尔控制值，横坐标为 0—1；角度输出限制为 0—180° |
+| shineEnabled | true | 是否在背面扫光；false 同时去掉扫光延迟与扫光时段 |
+| shineDelaySeconds / shineSeconds | 1.25 / 0.6 | 秒，翻转结束到扫光的停留 / 光带通过时长 |
+| shineIntensity / shineWidth | 0.5 / 0.45 | 0—1 强度 / 卡宽倍数；宽度需大于 0 |
+| shineAngle | -25 | 度，光带绕自身中心旋转；扫光路径固定从左到右 |
+| endHoldSeconds / exitSeconds | 0.8 / 0.35 | 秒，扫光结束后停留 / 24px 下移淡出；关闭扫光时从翻转结束计停留 |
+
+总时长 = 入场 + 正面停留 + 翻转 +（开启扫光时：扫光延迟 + 扫光）+ 末尾停留 + 退出，无重叠。关闭扫光后默认 2.75 秒，30fps 下取整为 83 帧。入场、退出及停留可以设为 0，翻转与扫光时长需大于 0。Demo 可调 flipSeconds、direction、shineEnabled、shineSeconds、shineIntensity，calculateMetadata 自动跟随总帧数；需要调布局或其他参数可在 Demo 中传给组件。所有运动按 frame / fps 求值，支持任意顺序 seek。
+
+像素坐标基于 Composition；改变画幅需重设位置与尺寸。两面为独立 JSX，使用图片时填满容器并指定 objectFit / objectPosition；正文、标签和品牌均可自行替换。建议只放无音频、无副作用的视觉内容，声音另行编排。CSS backfaceVisibility 隐藏背向镜头的一面，背面先 rotateY(180deg)，翻转后文字保持正向。扫光裁切在背面内，采用透明渐变和按转角变化的柔和明暗，属于可调视觉近似，并非物理材质反射。
+
+参考约 1.63—1.97 秒翻转、3.25—3.65 秒扫光；录屏前段播放按钮、鼠标点击和边角讲解头像没有入库。真实缓动、材质与灯光方向无法精确反推，保留中心旋转、面交接和延迟扫光结构，公开风格延续奶油、淡粉、薄荷与灰紫。预设见 `presets/flip-shine-card.json`，运行 `npm run render:flipshine` 导出。

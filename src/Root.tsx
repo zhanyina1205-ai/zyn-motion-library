@@ -1,3 +1,5 @@
+import {FlipShineCardDemo} from './FlipShineCardDemo';
+import {flipShineCardDurationSeconds} from './motions';
 import {LayeredCollagePosterDemo} from './LayeredCollagePosterDemo';
 import {TornPaperCloudWipeDemo} from './TornPaperCloudWipeDemo';
 import {collagePosterLayers} from './CollagePosterArt';
@@ -51,4 +53,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="TornPaperCloudWipeDemo" component={TornPaperCloudWipeDemo} width={1920} height={1080} fps={30} durationInFrames={126}
  defaultProps={{wipeSeconds:1.8,roughness:28,direction:'left'}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(tornPaperCloudWipeDurationSeconds(props)*30-1e-8)})}/>
+ <Composition id="FlipShineCardDemo" component={FlipShineCardDemo} width={1920} height={1080} fps={30} durationInFrames={138}
+ defaultProps={{flipSeconds:.4,direction:'left',shineEnabled:true,shineSeconds:.6,shineIntensity:.5}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(flipShineCardDurationSeconds(props)*30-1e-8)})}/>
 </>;

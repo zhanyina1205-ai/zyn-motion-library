@@ -22,3 +22,5 @@ export {LayeredCollagePoster, layeredCollagePosterDurationSeconds} from './Layer
 export type {LayeredCollagePosterProps, CollagePosterLayer} from './LayeredCollagePoster';
 export {TornPaperCloudWipe, tornPaperCloudWipeDurationSeconds} from './TornPaperCloudWipe';
 export type {TornPaperCloudWipeProps} from './TornPaperCloudWipe';
+export {FlipShineCard, flipShineCardDurationSeconds} from './FlipShineCard';
+export type {FlipShineCardProps} from './FlipShineCard';
