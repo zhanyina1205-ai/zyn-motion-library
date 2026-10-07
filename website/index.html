@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的两个可复用动效镜头：整体上滑与拍立得错落浮起。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的三个可复用动效镜头：整体上滑、拍立得错落浮起与立体相册轮转。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册和作品展示。</p></div><div class="collection-note"><span class="note-number">02</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、立体轮播和作品展示。</p></div><div class="collection-note"><span class="note-number">03</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -28,4 +28,24 @@
   "angle": -9,
   "perspective": 1800
 }</code></pre><p class="detail-note">在 Remotion 中使用 FloatingPhotoCard。每张照片调整入场时间和前后距离，图片上沿与胶带需避开标题。</p></div></details></div></article>
+
+<article class="shot" data-shot="carousel" id="perspective-carousel"><div class="shot-top"><span class="shot-index pink">03</span><div><p class="shot-label">PERSPECTIVE CAROUSEL</p><h2>立体相册轮转</h2></div><span class="type">立体轮播</span></div>
+<div class="screen mint"><video id="carousel-video" aria-label="立体相册轮转动效预览" poster="assets/perspective-carousel.jpg" src="assets/perspective-carousel.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="carousel-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放立体相册轮转">重播</button><output class="time" aria-live="off">0:00 / 0:04</output><label><span class="sr-only">立体相册轮转播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="4.6" step="0.01" value="0" aria-label="立体相册轮转播放进度"></div>
+<div class="shot-body"><p class="description">一格停留，一格轮转。卡片在立体相册中展开，把下一张回忆转到眼前。</p><div class="facts"><div><span>轮转时长</span><strong>0.6 秒 / 格</strong></div><div><span>每格停留</span><strong>0.5 秒</strong></div><div><span>适合用在</span><strong>封面 / 作品 / 相册</strong></div></div>
+<details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>卡片环绕竖直轴排列，右侧卡片转正，前一张退到左侧并收窄。示例包含完整入场、两次轮转、停留与退出，可替换图片、文字和卡片内容。</p><div class="parameter"><span>八张卡片参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "direction": "left",
+  "turns": 2,
+  "enterSeconds": 0.45,
+  "holdSeconds": 0.5,
+  "turnSeconds": 0.6,
+  "endHoldSeconds": 1.5,
+  "exitSeconds": 0.45,
+  "cardWidth": 490,
+  "cardHeight": 555,
+  "radius": 635,
+  "perspective": 2200,
+  "initialAngle": 8,
+  "easing": [0.42, 0, 0.22, 1]
+}</code></pre><p class="detail-note">使用 PerspectiveCarousel 与 CarouselPhotoCard，至少三张卡片。尺寸、半径、透视以 px 为单位，角度以度为单位；秒数跟随 fps。总时长为入场 + 轮转格数 ×（停留 + 转动）+ 末尾停留 + 退出，默认 4.6 秒，无转场重叠。卡片数量决定每格转角，透视与缓动是参考的近似值，可继续调整。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>

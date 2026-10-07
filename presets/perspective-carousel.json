@@ -1,0 +1,30 @@
+{
+  "composition": "PerspectiveCarouselDemo",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "motion": {
+    "cardWidth": 490,
+    "cardHeight": 555,
+    "radius": 635,
+    "perspective": 2200,
+    "centerX": 960,
+    "centerY": 656,
+    "initialAngle": 8,
+    "direction": "left",
+    "turns": 2,
+    "enterSeconds": 0.45,
+    "holdSeconds": 0.5,
+    "turnSeconds": 0.6,
+    "endHoldSeconds": 1.5,
+    "exitSeconds": 0.45,
+    "easing": [
+      0.42,
+      0,
+      0.22,
+      1
+    ]
+  }
+}

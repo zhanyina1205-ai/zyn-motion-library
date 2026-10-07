@@ -7,3 +7,5 @@
 本地预览：在此目录运行 `python3 -m http.server 3013`。
 
 发布配置位于 `.github/workflows/pages.yml`；推送 `website/` 到 `main` 即可自动更新 GitHub Pages。
+
+新增第三个镜头：立体相册轮转（PerspectiveCarouselDemo），assets/perspective-carousel.mp4 与 .jpg 为通用素材预览。播放控制沿用 app.js 的 .shot 初始化与互斥播放。

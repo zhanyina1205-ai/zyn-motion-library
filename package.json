@@ -1,7 +1,7 @@
 {
   "name": "zyn-motion-library",
   "version": "1.0.0",
-  "description": "可复用的整体上滑与拍立得浮起镜头库",
+  "description": "可复用的整体上滑、拍立得浮起与立体相册轮转镜头库",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -25,6 +25,7 @@
     "dev": "remotion studio --no-open",
     "check": "tsc --noEmit",
     "render:slide": "remotion render src/index.ts WholePageSlideDemo previews/whole-page-slide.mp4 --codec=h264 --crf=17",
-    "render:float": "remotion render src/index.ts FloatingPolaroidsDemo previews/floating-polaroids.mp4 --codec=h264 --crf=17"
+    "render:float": "remotion render src/index.ts FloatingPolaroidsDemo previews/floating-polaroids.mp4 --codec=h264 --crf=17",
+    "render:carousel": "remotion render src/index.ts PerspectiveCarouselDemo previews/perspective-carousel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }
