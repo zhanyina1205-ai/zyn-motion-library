@@ -32,6 +32,7 @@
     "render:panel": "remotion render src/index.ts ThumbnailPanelDemo previews/thumbnail-panel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:glitch": "remotion render src/index.ts ChromaticGlitchDemo previews/chromatic-glitch.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:window": "remotion render src/index.ts MediaWindowCardDemo previews/media-window-card.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
-    "render:book": "remotion render src/index.ts FoldPageAlbumDemo previews/fold-page-album.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
+    "render:book": "remotion render src/index.ts FoldPageAlbumDemo previews/fold-page-album.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:aperture": "remotion render src/index.ts CenterApertureFlashDemo previews/center-aperture-flash.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }

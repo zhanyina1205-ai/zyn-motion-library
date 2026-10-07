@@ -1,0 +1,30 @@
+{
+  "id": "center-aperture-flash",
+  "name": "中心开屏快闪",
+  "composition": "CenterApertureFlashDemo",
+  "params": {
+    "centerX": 960,
+    "centerY": 650,
+    "frameWidth": 1200,
+    "frameHeight": 600,
+    "enterSeconds": 0.35,
+    "baseHoldSeconds": 0.3,
+    "shotSeconds": 0.12,
+    "endHoldSeconds": 1.1,
+    "exitSeconds": 0.4,
+    "initialOpening": 0,
+    "openingEasing": [
+      0,
+      0,
+      1,
+      1
+    ]
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 3.59,
+  "durationInFrames": 108
+}

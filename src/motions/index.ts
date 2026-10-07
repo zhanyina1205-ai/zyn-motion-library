@@ -16,3 +16,5 @@ export {MediaWindowCard, mediaWindowCardDurationSeconds} from './MediaWindowCard
 export type {MediaWindowCardProps} from './MediaWindowCard';
 export {FoldPageAlbum, foldPageAlbumDurationSeconds} from './FoldPageAlbum';
 export type {FoldPageAlbumProps} from './FoldPageAlbum';
+export {CenterApertureFlash, centerApertureFlashDurationSeconds} from './CenterApertureFlash';
+export type {CenterApertureFlashProps} from './CenterApertureFlash';

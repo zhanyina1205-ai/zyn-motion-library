@@ -1,3 +1,5 @@
+import {CenterApertureFlashDemo} from './CenterApertureFlashDemo';
+import {centerApertureFlashDurationSeconds} from './motions';
 import {FoldPageAlbumDemo} from './FoldPageAlbumDemo';
 import {foldPageAlbumDurationSeconds} from './motions';
 import {MediaWindowCardDemo} from './MediaWindowCardDemo';
@@ -36,4 +38,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="FoldPageAlbumDemo" component={FoldPageAlbumDemo} width={1920} height={1080} fps={30} durationInFrames={198}
  defaultProps={{turnSeconds:0.8,curlAngle:20,popupDepth:65}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(foldPageAlbumDurationSeconds(4,props)*30-1e-8)})}/>
+ <Composition id="CenterApertureFlashDemo" component={CenterApertureFlashDemo} width={1920} height={1080} fps={30} durationInFrames={108}
+ defaultProps={{shotSeconds:0.12,initialOpening:0}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(centerApertureFlashDurationSeconds(12,props)*30-1e-8)})}/>
 </>;

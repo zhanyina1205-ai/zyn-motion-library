@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-九个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**与**折页相册揭物**。
+十个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**与**中心开屏快闪**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 或 `FoldPageAlbumDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 或 `CenterApertureFlashDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -24,6 +24,7 @@ npm run render:panel
 npm run render:glitch
 npm run render:window
 npm run render:book
+npm run render:aperture
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -367,3 +368,37 @@ const Book = () => <FoldPageAlbum {...options}
 纸面用窄条 3D 平面近似弯曲，沿书脊收至约 90° 后揭出下一页；未模拟真实纸张翻至左侧的 180° 运动或手部操作。最后物件是透明平面向前展开，未重建原片瓶身的立体网格。右页内容会被克隆至各分段，请使用无音频、无副作用、无重复全局 DOM ID 的视觉 JSX，声音另行编排。
 
 素材放入 `public/images/`，预设见 `presets/fold-page-album.json`；运行 `npm run render:book` 导出。参考视频及原始音轨仅用于本地分析，不包含在公开仓库中。
+
+
+## 10 · 中心开屏快闪
+
+`CenterApertureFlash` 在固定底图中心打开一条横缝，开口持续向上下扩展，缝内内容按固定间隔直接硬切，最后铺满相册框并停留。Demo 使用十二项通用 SVG，逻辑时长 3.59 秒，取整为 108 帧 / 3.6 秒，1920×1080 / 30fps。底图在 Demo 中设为灰度；组件本身保留自定义底图颜色。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {CenterApertureFlash, centerApertureFlashDurationSeconds} from './motions';
+const options = {shotSeconds: 0.12, frameWidth: 1200, frameHeight: 600};
+const Photo = ({src}: {src: string}) => <CanvasImage src={staticFile(src)}
+  style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 50%'}}/>;
+const shots = ['images/one.jpg','images/two.jpg','images/three.jpg'].map(src => <Photo src={src}/>);
+const Scene = () => <CenterApertureFlash {...options}
+  base={<Photo src="images/base.jpg"/>} shots={shots}/>;
+// 主 Composition 帧数 = Math.ceil(centerApertureFlashDurationSeconds(shots.length, options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| base / shots | 必填 / 至少两项 | React 视觉内容，底图与快切序列 |
+| centerX / centerY | 画布中心 | px，画框中心；Demo 为 960 / 650 |
+| frameWidth / frameHeight | 1200 / 650 | px，画框内部尺寸；Demo 高 600，外围额外 18px 奶油白纸框 |
+| enterSeconds / baseHoldSeconds | 0.35 / 0.3 | 秒，入场与开屏前底图停留 |
+| shotSeconds | 0.12 | 秒，每项快切停留；开屏总时长为项目数 × 此值 |
+| endHoldSeconds / exitSeconds | 1.1 / 0.4 | 秒，开屏结束后末项额外停留与退出 |
+| initialOpening | 0 | 0—1，首次快切时开口占画框高度的比例 |
+| openingEasing | [0,0,1,1] | 贝塞尔四控制值，默认线性开屏；横坐标需为 0—1，输出限制为 0—1 |
+
+总时长 = 入场 + 底图停留 + `项目数 × 每项停留` + 末项额外停留 + 退出。遮罩开屏和快切同时发生，没有额外开屏段或转场重叠。最后一项在其快切时段内出现，随后继续停留；默认 0.12 秒在 30fps 下按帧落到约 3 / 4 帧边界，所有时长跟随 fps。Demo 的 calculateMetadata 会随快切间隔更新总帧数。
+
+将素材放入 `public/images/`，视觉内容应填满画框。窗口通过 clip-path 裁切，而不是压缩图片高度；可用 objectPosition 调整裁切焦点。像素坐标以 Composition 为基准，改变画幅需重新设置位置和尺寸。快切视觉内容会按索引挂载，建议传入静态图片或无音频、无副作用的视觉 JSX；声音另行编排。
+
+参考约 0.3—1.7 秒为开屏快闪；真实缓动和原媒体焦点无法从单一录屏精确确定，采用可调线性近似。后段博主信息及播放器暂停界面未纳入，也未复制参考素材和音轨。预设见 `presets/center-aperture-flash.json`，运行 `npm run render:aperture` 导出。
