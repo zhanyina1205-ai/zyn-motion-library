@@ -90,4 +90,6 @@ const Album=()=> <div style={{position:'absolute',inset:0,
 
 ## 公开展示页
 
-[ZYN 镜头库](https://zyn-motion-library.zhanyina1205.chatgpt.site) 可直接分享给任何人查看。网页支持播放、重播、慢放、进度拖动与参数查看；网页源码和通用视频演示位于 `website/`。
+[ZYN 镜头库](https://zhanyina1205-ai.github.io/zyn-motion-library/) 可直接分享给任何人查看。网页支持播放、重播、慢放、进度拖动与参数查看；网页源码和通用视频演示位于 `website/`。
+
+展示页通过 GitHub Pages 发布。更新 `website/` 并推送到 `main` 后，GitHub Actions 会自动发布新版本。
