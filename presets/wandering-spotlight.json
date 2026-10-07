@@ -1,0 +1,128 @@
+{
+  "id": "wandering-spotlight",
+  "name": "游走聚光蒙版",
+  "composition": "WanderingSpotlightDemo",
+  "params": {
+    "centerX": 960,
+    "centerY": 630,
+    "frameWidth": 1240,
+    "frameHeight": 630,
+    "enterSeconds": 0.35,
+    "endHoldSeconds": 0.8,
+    "exitSeconds": 0.35,
+    "dimOpacity": 0.8,
+    "dimColor": "#40384b",
+    "feather": 0,
+    "borderColor": "#fffdf8",
+    "borderWidth": 5,
+    "borderDash": [
+      14,
+      12
+    ],
+    "captionColor": "#fffdf8",
+    "captionSize": 48,
+    "captionGap": 20,
+    "captionSide": "top",
+    "motionEasing": [
+      0.4,
+      0,
+      0.2,
+      1
+    ],
+    "keyframes": [
+      {
+        "timeSeconds": 0,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 0.26,
+        "height": 0.84,
+        "roundness": 0.04,
+        "caption": "先看这里"
+      },
+      {
+        "timeSeconds": 0.5,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 0.18,
+        "height": 0.56,
+        "roundness": 0.04,
+        "caption": "聚焦细节"
+      },
+      {
+        "timeSeconds": 0.95,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 0.66,
+        "height": 0.25,
+        "roundness": 0.08,
+        "caption": "换一种形状"
+      },
+      {
+        "timeSeconds": 1.35,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 0.32,
+        "height": 0.78,
+        "roundness": 0.06,
+        "caption": "找到视觉焦点"
+      },
+      {
+        "timeSeconds": 1.75,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 0.3,
+        "height": 0.59,
+        "roundness": 1,
+        "caption": "让视线，游走"
+      },
+      {
+        "timeSeconds": 2.25,
+        "x": 0.27,
+        "y": 0.43,
+        "width": 0.3,
+        "height": 0.59,
+        "roundness": 1,
+        "caption": "一朵小花",
+        "captionAngle": -12
+      },
+      {
+        "timeSeconds": 2.9,
+        "x": 0.74,
+        "y": 0.7,
+        "width": 0.3,
+        "height": 0.59,
+        "roundness": 1,
+        "caption": "一杯好心情",
+        "captionAngle": 12
+      },
+      {
+        "timeSeconds": 3.55,
+        "x": 0.68,
+        "y": 0.3,
+        "width": 0.3,
+        "height": 0.59,
+        "roundness": 1,
+        "caption": "一点小惊喜",
+        "captionAngle": 0,
+        "captionSide": "bottom"
+      },
+      {
+        "timeSeconds": 4.15,
+        "x": 0.5,
+        "y": 0.5,
+        "width": 2,
+        "height": 3,
+        "roundness": 1,
+        "caption": ""
+      }
+    ]
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "logicalDurationSeconds": 5.65,
+  "durationSeconds": 5.666666666666667,
+  "durationInFrames": 170
+}

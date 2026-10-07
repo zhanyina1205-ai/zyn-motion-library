@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-十三个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**、**撕纸云朵擦镜**与**双面翻卡扫光**。
+十四个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**、**撕纸云朵擦镜**、**双面翻卡扫光**与**游走聚光蒙版**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo`、`TornPaperCloudWipeDemo` 或 `FlipShineCardDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo`、`TornPaperCloudWipeDemo`、`FlipShineCardDemo` 或 `WanderingSpotlightDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -28,6 +28,7 @@ npm run render:aperture
 npm run render:collage
 npm run render:cloudwipe
 npm run render:flipshine
+npm run render:spotlight
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -514,3 +515,45 @@ const Scene = () => <FlipShineCard {...options}
 像素坐标基于 Composition；改变画幅需重设位置与尺寸。两面为独立 JSX，使用图片时填满容器并指定 objectFit / objectPosition；正文、标签和品牌均可自行替换。建议只放无音频、无副作用的视觉内容，声音另行编排。CSS backfaceVisibility 隐藏背向镜头的一面，背面先 rotateY(180deg)，翻转后文字保持正向。扫光裁切在背面内，采用透明渐变和按转角变化的柔和明暗，属于可调视觉近似，并非物理材质反射。
 
 参考约 1.63—1.97 秒翻转、3.25—3.65 秒扫光；录屏前段播放按钮、鼠标点击和边角讲解头像没有入库。真实缓动、材质与灯光方向无法精确反推，保留中心旋转、面交接和延迟扫光结构，公开风格延续奶油、淡粉、薄荷与灰紫。预设见 `presets/flip-shine-card.json`，运行 `npm run render:flipshine` 导出。
+
+
+## 14 · 游走聚光蒙版
+
+`WanderingSpotlight` 将一个固定视觉内容放在画框里，蒙版外压暗、窗口内保留原亮度。窗口的中心、宽高和圆角由关键帧控制，矩形可以连续变为圆形或椭圆，并沿路径移动；虚线边框和可选文字跟随窗口，末段放大窗口即可揭示全图。公开示例使用通用 SVG，相册构图保持原位。逻辑时长 5.65 秒，30fps 取整为 170 帧 / 5.67 秒。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {WanderingSpotlight, wanderingSpotlightDurationSeconds} from './motions';
+const keyframes = [
+  {timeSeconds:0, x:.5,y:.5,width:.25,height:.8,roundness:0,caption:'先看这里'},
+  {timeSeconds:1, x:.3,y:.4,width:.3,height:.6,roundness:1,caption:'一个细节'},
+  {timeSeconds:2, x:.5,y:.5,width:2,height:3,roundness:1,caption:''},
+];
+const Scene = () => <WanderingSpotlight keyframes={keyframes}
+  content={<CanvasImage src={staticFile('images/photo.jpg')}
+    style={{width:'100%',height:'100%',objectFit:'cover'}}/>}/>;
+// 总帧数 = Math.ceil(wanderingSpotlightDurationSeconds(keyframes) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| content / keyframes | 必填 / 至少两项 | 底图视觉 JSX / 蒙版的形状与路径 |
+| centerX / centerY | 画布中心 | px，整个画框在 Composition 内的中心；Demo 为 960 / 630 |
+| frameWidth / frameHeight | 1240 / 630 | px，底图及蒙版画框尺寸，外加 18px 奶油相册边框 |
+| enterSeconds / endHoldSeconds / exitSeconds | 0.35 / 0.8 / 0.35 | 秒，浮入、末关键帧停留、下移淡出；可以为 0 |
+| dimOpacity / dimColor | 0.8 / #40384b | 0—1 暗幕不透明度 / 暗幕颜色，不影响亮区内部 |
+| feather | 0 | px，亮区软边的高斯标准差，0 为清晰边缘 |
+| borderColor / borderWidth / borderDash | #fffdf8 / 5 / [14,12] | 边框颜色 / px 描边宽 / px 实线与间隙长度；宽度 0 隐藏边框 |
+| captionColor / captionSize / captionGap | #fffdf8 / 48 / 20 | 文字颜色 / px 字号 / px 窗口边缘间距 |
+| captionSide | bottom | top / bottom，全局文字侧；Demo 为 top，关键帧可覆盖 |
+| motionEasing | [0.4,0,0.2,1] | 每段运动的贝塞尔控制值，横坐标为 0—1，输出限制为 0—1 |
+
+每项 keyframe 包含 `timeSeconds`（秒，从入场完成开始）、`x / y`（中心的画框比例）、`width / height`（宽高的画框比例）和 `roundness`（0—1）。时间从 0 开始且严格递增，至少两项，宽高需大于 0；中心可越界，宽高可大于 1，用于移出或放大揭示。圆角比例 0 为矩形，1 为椭圆；只有 `width × frameWidth = height × frameHeight` 时是圆。默认 Demo 的 0.30 × 1240 与 0.59 × 630 相差不足 1px，近似圆形。
+
+可选 `caption` 为文字，留空隐藏；按当前关键帧时间硬切文字，`captionAngle`（默认 0，度）随相邻关键帧插值；`captionSide` 覆盖全局文字侧。文字跟随中心及窗口边缘，靠近上下边界时限制在画框内部，保持单行，长文字应缩短或调小字号。参考的沿弧排字与四周汉字采用单行位置/角度跟随的近似，没有复用原字幕。
+
+总时长 = 入场 + 末关键帧 timeSeconds + 最后停留 + 退出，没有阶段重叠。各段均由 frame / fps 驱动，支持任意顺序 seek。Demo 的 `pace`（默认 1，正数，所有关键帧时间的倍数）越大越慢，calculateMetadata 自动更新帧数；入场和末尾时段不受 pace 影响。Demo 还暴露 dimOpacity、feather、captionSide。完整关键帧见 `src/WanderingSpotlightDemo.tsx` 和 `presets/wandering-spotlight.json`。
+
+content 仅挂载一次，没有随窗口缩放或重复挂载。图片、文字卡、无副作用的视觉内容均可替换；要配视频时自行在外层编排音频与时长，组件只负责视觉蒙版。像素坐标以 Composition 为基准，关键帧比例以此组件画框为基准；不同尺寸需调圆形宽高比例。SVG 蒙版 ID 按组件实例生成，多实例不会互相覆盖。
+
+参考约 0.95—2.4 秒由矩形变圆形、2.7—5.1 秒沿路径游走、5.2—6.3 秒放大揭示。采用分段缓动近似原路径与真实缓动；前后章节封面、鼠标操作和参考人物音轨没有入库。运行 `npm run render:spotlight` 导出。

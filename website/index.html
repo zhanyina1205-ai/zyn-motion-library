@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的十三个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜、画面收窗信息卡、折页相册揭物、中心开屏快闪、拼贴海报分层入场、撕纸云朵擦镜与双面翻卡扫光。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的十四个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜、画面收窗信息卡、折页相册揭物、中心开屏快闪、拼贴海报分层入场、撕纸云朵擦镜、双面翻卡扫光与游走聚光蒙版。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">13</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">14</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -259,4 +259,110 @@
     1
   ]
 }</code></pre><p class="detail-note">使用 FlipShineCard，front / back 为填满卡片的视觉内容。centerX / centerY 为 Composition 像素中心坐标；cardWidth / cardHeight、perspective、radius 单位 px。direction 为 left / right，flipEasing 为四值贝塞尔。shineWidth 为卡宽倍数，shineIntensity 为 0—1，shineAngle 单位度；扫光固定从左到右。总时长 = 入场 + 正面停留 + 翻转 +（开启扫光时：延迟 + 扫光）+ 背面末尾停留 + 退出，默认 4.6 秒 / 138 帧；没有时段重叠。关闭扫光默认 2.75 秒，30fps 取整 83 帧。真实光照使用可调渐变近似。</p></div></details></div></article>
+
+<article class="shot" data-shot="wandering-spotlight" id="wandering-spotlight"><div class="shot-top"><span class="shot-index pink">14</span><div><p class="shot-label">WANDERING SPOTLIGHT</p><h2>游走聚光蒙版</h2></div><span class="type">视线引导</span></div>
+<div class="screen pink"><video id="wandering-spotlight-video" aria-label="游走聚光蒙版动效预览" poster="assets/wandering-spotlight.jpg" src="assets/wandering-spotlight.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="wandering-spotlight-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放游走聚光蒙版">重播</button><output class="time" aria-live="off">0:00 / 0:05</output><label><span class="sr-only">游走聚光蒙版播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="5.666667" step="0.01" value="0" aria-label="游走聚光蒙版播放进度"></div>
+<div class="shot-body"><p class="description">让亮区从方框变成圆形，在相册里游走，再放大看见完整的小世界。</p><div class="facts"><div><span>窗口形状</span><strong>矩形 → 圆形</strong></div><div><span>运动方式</span><strong>关键帧游走</strong></div><div><span>适合用在</span><strong>讲解 / 聚焦 / 揭示</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>底图保持原位；蒙版外压暗，窗口内保留原亮度。虚线框与可选文字跟随窗口。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "centerX": 960,
+  "centerY": 630,
+  "frameWidth": 1240,
+  "frameHeight": 630,
+  "enterSeconds": 0.35,
+  "endHoldSeconds": 0.8,
+  "exitSeconds": 0.35,
+  "dimOpacity": 0.8,
+  "dimColor": "#40384b",
+  "feather": 0,
+  "borderColor": "#fffdf8",
+  "borderWidth": 5,
+  "borderDash": [
+    14,
+    12
+  ],
+  "captionColor": "#fffdf8",
+  "captionSize": 48,
+  "captionGap": 20,
+  "captionSide": "top",
+  "motionEasing": [
+    0.4,
+    0,
+    0.2,
+    1
+  ],
+  "keyframes": [
+    {
+      "timeSeconds": 0,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 0.26,
+      "height": 0.84,
+      "roundness": 0.04
+    },
+    {
+      "timeSeconds": 0.5,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 0.18,
+      "height": 0.56,
+      "roundness": 0.04
+    },
+    {
+      "timeSeconds": 0.95,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 0.66,
+      "height": 0.25,
+      "roundness": 0.08
+    },
+    {
+      "timeSeconds": 1.35,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 0.32,
+      "height": 0.78,
+      "roundness": 0.06
+    },
+    {
+      "timeSeconds": 1.75,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 0.3,
+      "height": 0.59,
+      "roundness": 1
+    },
+    {
+      "timeSeconds": 2.25,
+      "x": 0.27,
+      "y": 0.43,
+      "width": 0.3,
+      "height": 0.59,
+      "roundness": 1
+    },
+    {
+      "timeSeconds": 2.9,
+      "x": 0.74,
+      "y": 0.7,
+      "width": 0.3,
+      "height": 0.59,
+      "roundness": 1
+    },
+    {
+      "timeSeconds": 3.55,
+      "x": 0.68,
+      "y": 0.3,
+      "width": 0.3,
+      "height": 0.59,
+      "roundness": 1
+    },
+    {
+      "timeSeconds": 4.15,
+      "x": 0.5,
+      "y": 0.5,
+      "width": 2,
+      "height": 3,
+      "roundness": 1
+    }
+  ]
+}</code></pre><p class="detail-note">使用 WanderingSpotlight，content 为填满画框的视觉内容。centerX / centerY 是 Composition 像素中心坐标；frameWidth / frameHeight 单位 px。keyframes 的 x / y / width / height 是相对组件画框的比例，timeSeconds 从入场结束起算；roundness 为 0—1，1 为椭圆，width × 画框宽 = height × 画框高时是圆。可按关键帧添加 caption、captionAngle（度）与 captionSide（top / bottom）。dimOpacity 为 0—1，feather / 虚线 / 字号单位 px。总时长 = 入场 + 末关键帧时间 + 最后停留 + 退出，默认 5.65 秒取整 170 帧 / 5.67 秒。可使用超出画框的大窗口揭示全图；边缘文字靠近画框时自动留在框内。参考弧形文字采用跟随位置及角度的单行文字近似。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>

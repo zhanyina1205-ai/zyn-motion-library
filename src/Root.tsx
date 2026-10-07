@@ -1,3 +1,5 @@
+import {WanderingSpotlightDemo,spotlightDemoKeyframes} from './WanderingSpotlightDemo';
+import {wanderingSpotlightDurationSeconds} from './motions';
 import {FlipShineCardDemo} from './FlipShineCardDemo';
 import {flipShineCardDurationSeconds} from './motions';
 import {LayeredCollagePosterDemo} from './LayeredCollagePosterDemo';
@@ -56,4 +58,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="FlipShineCardDemo" component={FlipShineCardDemo} width={1920} height={1080} fps={30} durationInFrames={138}
  defaultProps={{flipSeconds:.4,direction:'left',shineEnabled:true,shineSeconds:.6,shineIntensity:.5}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(flipShineCardDurationSeconds(props)*30-1e-8)})}/>
+ <Composition id="WanderingSpotlightDemo" component={WanderingSpotlightDemo} width={1920} height={1080} fps={30} durationInFrames={170}
+ defaultProps={{pace:1,dimOpacity:.8,feather:0,captionSide:'top'}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(wanderingSpotlightDurationSeconds(spotlightDemoKeyframes.map(k=>({...k,timeSeconds:k.timeSeconds*Number(props.pace??1)})))*30-1e-8)})}/>
 </>;

@@ -24,3 +24,5 @@ export {TornPaperCloudWipe, tornPaperCloudWipeDurationSeconds} from './TornPaper
 export type {TornPaperCloudWipeProps} from './TornPaperCloudWipe';
 export {FlipShineCard, flipShineCardDurationSeconds} from './FlipShineCard';
 export type {FlipShineCardProps} from './FlipShineCard';
+export {WanderingSpotlight, wanderingSpotlightDurationSeconds} from './WanderingSpotlight';
+export type {WanderingSpotlightProps, SpotlightKeyframe} from './WanderingSpotlight';
