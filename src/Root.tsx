@@ -1,3 +1,7 @@
+import {LayeredCollagePosterDemo} from './LayeredCollagePosterDemo';
+import {TornPaperCloudWipeDemo} from './TornPaperCloudWipeDemo';
+import {collagePosterLayers} from './CollagePosterArt';
+import {layeredCollagePosterDurationSeconds,tornPaperCloudWipeDurationSeconds} from './motions';
 import {CenterApertureFlashDemo} from './CenterApertureFlashDemo';
 import {centerApertureFlashDurationSeconds} from './motions';
 import {FoldPageAlbumDemo} from './FoldPageAlbumDemo';
@@ -41,4 +45,10 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="CenterApertureFlashDemo" component={CenterApertureFlashDemo} width={1920} height={1080} fps={30} durationInFrames={108}
  defaultProps={{shotSeconds:0.12,initialOpening:0}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(centerApertureFlashDurationSeconds(12,props)*30-1e-8)})}/>
+ <Composition id="LayeredCollagePosterDemo" component={LayeredCollagePosterDemo} width={1920} height={1080} fps={30} durationInFrames={198}
+ defaultProps={{pace:1,spinSpeed:65}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(layeredCollagePosterDurationSeconds(collagePosterLayers.map(l=>({...l,delaySeconds:(l.delaySeconds??0)*Number(props.pace??1),enterSeconds:(l.enterSeconds??.8)*Number(props.pace??1)})))*30-1e-8)})}/>
+ <Composition id="TornPaperCloudWipeDemo" component={TornPaperCloudWipeDemo} width={1920} height={1080} fps={30} durationInFrames={126}
+ defaultProps={{wipeSeconds:1.8,roughness:28,direction:'left'}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(tornPaperCloudWipeDurationSeconds(props)*30-1e-8)})}/>
 </>;

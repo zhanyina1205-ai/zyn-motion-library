@@ -1,0 +1,126 @@
+{
+  "id": "layered-collage-poster",
+  "name": "拼贴海报分层入场",
+  "composition": "LayeredCollagePosterDemo",
+  "params": {
+    "centerX": 960,
+    "centerY": 650,
+    "posterWidth": 1200,
+    "posterHeight": 650,
+    "holdSeconds": 1.7,
+    "exitSeconds": 0.5,
+    "paper": "#fffdf8"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 6.6,
+  "layerSettings": [
+    {
+      "id": "disc",
+      "delaySeconds": 0.6,
+      "enterSeconds": 1,
+      "x": 290,
+      "y": 75,
+      "width": 610,
+      "height": 610,
+      "zIndex": 1,
+      "fromY": 300,
+      "fromScale": 0.35,
+      "spinDegreesPerSecond": 8
+    },
+    {
+      "id": "label",
+      "delaySeconds": 1,
+      "enterSeconds": 0.8,
+      "x": 455,
+      "y": 240,
+      "width": 280,
+      "height": 280,
+      "zIndex": 2,
+      "fromY": 180,
+      "fromScale": 0.4,
+      "spinDegreesPerSecond": 65
+    },
+    {
+      "id": "cloud",
+      "delaySeconds": 0.35,
+      "enterSeconds": 0.7,
+      "x": -30,
+      "y": 330,
+      "width": 1030,
+      "height": 215,
+      "zIndex": 3,
+      "fromX": -400,
+      "fromY": 0
+    },
+    {
+      "id": "grass",
+      "delaySeconds": 0.1,
+      "enterSeconds": 0.7,
+      "x": 0,
+      "y": 440,
+      "width": 1200,
+      "height": 230,
+      "zIndex": 5,
+      "fromY": 260
+    },
+    {
+      "id": "cable",
+      "delaySeconds": 2.6,
+      "enterSeconds": 0.8,
+      "x": 100,
+      "y": 120,
+      "width": 310,
+      "height": 480,
+      "zIndex": 4,
+      "fromX": -350,
+      "fromY": 160,
+      "fromRotation": -25
+    },
+    {
+      "id": "title",
+      "delaySeconds": 1.9,
+      "enterSeconds": 0.6,
+      "x": 270,
+      "y": 35,
+      "width": 660,
+      "height": 130,
+      "zIndex": 7,
+      "fromY": -55
+    },
+    {
+      "id": "flower",
+      "delaySeconds": 3.6,
+      "enterSeconds": 0.8,
+      "x": 935,
+      "y": -55,
+      "width": 250,
+      "height": 250,
+      "zIndex": 8,
+      "fromX": 120,
+      "fromY": -150,
+      "fromRotation": 35,
+      "rotation": 12,
+      "swayDegrees": 7,
+      "swayPeriodSeconds": 3.5
+    },
+    {
+      "id": "footer",
+      "delaySeconds": 2.2,
+      "enterSeconds": 0.5,
+      "x": 35,
+      "y": 618,
+      "width": 1130,
+      "height": 30,
+      "zIndex": 9,
+      "fromY": 25
+    }
+  ],
+  "demoProps": {
+    "pace": 1,
+    "spinSpeed": 65
+  }
+}

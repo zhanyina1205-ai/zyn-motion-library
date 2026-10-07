@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-十个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**与**中心开屏快闪**。
+十二个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**与**撕纸云朵擦镜**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 或 `CenterApertureFlashDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo` 或 `TornPaperCloudWipeDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -25,6 +25,8 @@ npm run render:glitch
 npm run render:window
 npm run render:book
 npm run render:aperture
+npm run render:collage
+npm run render:cloudwipe
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -402,3 +404,75 @@ const Scene = () => <CenterApertureFlash {...options}
 将素材放入 `public/images/`，视觉内容应填满画框。窗口通过 clip-path 裁切，而不是压缩图片高度；可用 objectPosition 调整裁切焦点。像素坐标以 Composition 为基准，改变画幅需重新设置位置和尺寸。快切视觉内容会按索引挂载，建议传入静态图片或无音频、无副作用的视觉 JSX；声音另行编排。
 
 参考约 0.3—1.7 秒为开屏快闪；真实缓动和原媒体焦点无法从单一录屏精确确定，采用可调线性近似。后段博主信息及播放器暂停界面未纳入，也未复制参考素材和音轨。预设见 `presets/center-aperture-flash.json`，运行 `npm run render:aperture` 导出。
+
+
+## 11 · 拼贴海报分层入场
+
+`LayeredCollagePoster` 将独立剪贴层按延迟、位移、缩放与旋转组装成平面海报，保留前后遮挡；唱片可持续旋转，装饰可周期摆动。Demo 八层，组装完成 4.4 秒，停留 1.7 秒、退出 0.5 秒，共 6.6 秒 / 198 帧。通用图形见 `src/CollagePosterArt.tsx`，不包含参考人物、地景、品牌或配乐。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {LayeredCollagePoster, layeredCollagePosterDurationSeconds} from './motions';
+const Photo = ({src}: {src:string}) => <CanvasImage src={staticFile(src)}
+  style={{width:'100%',height:'100%',objectFit:'contain'}}/>;
+const layers = [
+ {id:'disc',content:<Photo src="collage/disc.png"/>,x:290,y:75,width:610,height:610,
+  delaySeconds:0.6,enterSeconds:1,fromY:300,fromScale:0.35,zIndex:1,spinDegreesPerSecond:8},
+ {id:'cloud',content:<Photo src="collage/cloud.png"/>,x:0,y:330,width:1000,height:215,
+  delaySeconds:0.35,fromX:-400,fromY:0,zIndex:3},
+];
+const options = {holdSeconds:1.7,exitSeconds:0.5};
+const Poster = () => <LayeredCollagePoster {...options} layers={layers}/>;
+// 主 Composition 帧数 = Math.ceil(layeredCollagePosterDurationSeconds(layers, options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| layers / background | 必填 / 可省略 | 分层视觉 JSX / 背景 JSX；每层 id 唯一 |
+| centerX / centerY | 画布中心 | px，海报整体中心；Demo 为 960 / 650 |
+| posterWidth / posterHeight | 1200 / 650 | px，内部画框大小，外围额外 18px 奶油纸框 |
+| holdSeconds / exitSeconds | 1.7 / 0.5 | 秒，最晚一层完成入场后的停留与整体退出 |
+| paper | #fffdf8 | CSS 颜色，外纸框 |
+| layer.x / y / width / height | 必填 | px，最终位置与尺寸，位置相对海报左上角 |
+| layer.delaySeconds / enterSeconds | 0 / 0.8 | 秒，独立入场延迟与时长 |
+| layer.fromX / fromY | 0 / 80 | px，相对最终位置的起始偏移 |
+| layer.fromScale / fromRotation | 1 / 0 | 倍数 / 度，起始缩放与相对旋转偏移 |
+| layer.rotation / spinDegreesPerSecond | 0 / 0 | 度 / 度每秒，最终基础角度与持续自转 |
+| layer.swayDegrees / swayPeriodSeconds | 0 / 3 | 度 / 秒，入场后正弦摆动幅度与周期 |
+| layer.zIndex | 数组索引 | 层级，数字越大越靠前 |
+
+总时长 = `max(每层延迟 + 入场时长)` + 停留 + 退出，独立入场互相重叠，不把所有时长相加。旋转从该层开始入场时计时，并在停留期间继续；摆动在入场过程中渐渐显现。全部按帧计算，任意 seek 顺序可复现。
+
+使用透明 PNG、SVG 或无音频、无副作用的视觉 JSX，可按图层更换照片与文字；素材放入 `public/collage/`。几何参数基于 Composition 像素，海报框会裁掉越界内容。换画幅需重设整体尺寸与层位置。预设 `presets/layered-collage-poster.json` 的 layerSettings 是可序列化布局，每项需按 id 接上实际 React content。
+
+Demo 可调 `pace`（所有入场延迟和时长的倍数，需大于 0）、`spinSpeed`（中心标签角速度）；calculateMetadata 自动更新总帧数。运行 `npm run render:collage` 导出。线缆使用固定形状整体移入，不模拟参考线缆的曲线变形；图层及持续旋转是可调平面近似。
+
+## 12 · 撕纸云朵擦镜
+
+`TornPaperCloudWipe` 将两块宽大的不规则纸云汇合盖住前景，在遮挡中点换景，再将纸云横向移开。可选透明装饰随云朵浮入和离开。Demo 前景停留 1 秒、擦镜 1.8 秒、后景停留 1.4 秒，共 4.2 秒 / 126 帧。
+
+```tsx
+import {AbsoluteFill, CanvasImage, staticFile} from 'remotion';
+import {TornPaperCloudWipe, tornPaperCloudWipeDurationSeconds} from './motions';
+const options = {wipeSeconds:1.8,direction:'left' as const,roughness:28};
+const Transition = () => <TornPaperCloudWipe {...options}
+ before={<AbsoluteFill style={{background:'#ccded7'}}>前一幕</AbsoluteFill>}
+ after={<AbsoluteFill style={{background:'#f9e2ec'}}>下一幕</AbsoluteFill>}
+ accent={<CanvasImage src={staticFile('collage/balloon.png')}
+  style={{width:'100%',height:'100%',objectFit:'contain'}}/>}/>;
+// 主 Composition 帧数 = Math.ceil(tornPaperCloudWipeDurationSeconds(options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| before / after / accent | 必填 / 必填 / 可省略 | 两幕视觉 JSX / 透明装饰 JSX |
+| beforeHoldSeconds / wipeSeconds / afterHoldSeconds | 1 / 1.8 / 1.4 | 秒，前景停留、整个擦镜、后景停留 |
+| paper | #fffdf8 | CSS 颜色，纸云 |
+| roughness | 28 | 0—80，SVG 1000单位坐标中的细小撕纸幅度；大起伏保持固定 |
+| direction | left | left / right，纸云和装饰移出方向 |
+| accentSize | 220 | px，装饰正方形容器 |
+| accentX / accentY | 画宽 × 0.54 / 画高 × 0.67 | px，装饰在覆盖阶段的中心，基于整个 Composition |
+
+总时长 = 前景停留 + 擦镜 + 后景停留，无额外转场重叠。在擦镜 48% 时完成覆盖、50% 切换前后幕、55% 开始移出，两个轮廓在中点重叠，roughness 范围内保持覆盖。两幕占同一个满幅容器，在中点切换；需持续播放的媒体时间和音频应在外层独立编排，避免依赖切换挂载保持其状态。
+
+纸云是确定性的波形边缘多边形，近似参考撕纸轮廓与云朵遮挡，没有复用原片材质。accent 使用透明 PNG、SVG 或 React 图形；公开 Demo 为自绘热气球。像素参数基于 Composition，其他画幅可调装饰尺寸和中心。预设见 `presets/torn-paper-cloud-wipe.json`，Demo 可调擦镜时长、粗糙度、方向并自动计算时长，运行 `npm run render:cloudwipe` 导出。

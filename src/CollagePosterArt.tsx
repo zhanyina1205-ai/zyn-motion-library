@@ -1,0 +1,21 @@
+import type {CollagePosterLayer} from './motions';
+const Disc=({label=false}:{label?:boolean})=><svg width="100%" height="100%" viewBox="0 0 500 500">
+ <circle cx="250" cy="250" r="245" fill={label?'#f5bdd3':'#b8d3c8'}/>
+ {!label&&Array.from({length:9},(_,i)=><circle key={i} cx="250" cy="250" r={140+i*11} fill="none" stroke="#fffdf8" strokeWidth="2" opacity=".45"/>)}
+ {label&&<><path d="M175 280Q200 170 245 225Q290 170 325 280" fill="none" stroke="#74677b" strokeWidth="8"/><text x="250" y="345" textAnchor="middle" fontSize="36" fill="#74677b">soft sounds</text><circle cx="250" cy="250" r="12" fill="#fffdf8"/></>}
+ </svg>;
+const Cloud=()=> <svg width="100%" height="100%" viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0 300V165L35 148L52 155L66 130L98 134L117 92L140 97L166 68L197 80L221 56L245 79L279 69L300 111L335 105L365 145L401 122L434 94L460 102L491 75L525 89L550 70L578 94L608 89L637 117L674 110L707 161L737 145L763 171L802 160L831 205L871 177L904 214L950 205L1000 228V300Z" fill="#fffdf8"/></svg>;
+const Grass=()=> <svg width="100%" height="100%" viewBox="0 0 1200 300" preserveAspectRatio="none"><path d="M0 105Q230 0 470 90T1200 80V300H0Z" fill="#a9cabc"/><path d="M0 210Q360 105 640 165T1200 135V300H0Z" fill="#cbded5"/>{Array.from({length:18},(_,i)=><g key={i} transform={`translate(${30+i*67} ${150+(i%3)*27})`}><path d="M0 30V0" stroke="#74677b" strokeWidth="2"/><circle r="9" fill={i%2?'#f5bdd3':'#fffdf8'}/></g>)}</svg>;
+const Cable=()=> <svg width="100%" height="100%" viewBox="0 0 400 600"><path d="M30 600Q20 365 180 245L245 130" fill="none" stroke="#fffdf8" strokeWidth="32"/><path d="M30 600Q20 365 180 245L245 130" fill="none" stroke="#74677b" strokeWidth="6"/><g transform="translate(227 65) rotate(35)"><rect width="65" height="115" rx="12" fill="#fffdf8" stroke="#74677b" strokeWidth="3"/><circle cx="32" cy="78" r="15" fill="#f5bdd3"/><path d="M22 0V-30M42 0V-30" stroke="#74677b" strokeWidth="5"/></g></svg>;
+const Flower=()=> <svg width="100%" height="100%" viewBox="0 0 300 300"><g transform="translate(150 150)" fill="#f5bdd3" stroke="#fffdf8" strokeWidth="5">{Array.from({length:7},(_,i)=><ellipse key={i} cx="0" cy="-72" rx="40" ry="75" transform={`rotate(${i*360/7})`}/>)}<circle r="40" fill="#fff8ed" stroke="#74677b" strokeWidth="3"/></g></svg>;
+export const Balloon=()=> <svg width="100%" height="100%" viewBox="0 0 240 300"><path d="M120 230C90 190 20 155 20 85A100 85 0 0 1 220 85C220 155 150 190 120 230Z" fill="#ccded7" stroke="#74677b" strokeWidth="3"/><path d="M120 230C90 190 70 155 70 85C70 40 90 0 120 0C150 0 170 40 170 85C170 155 150 190 120 230Z" fill="#f5bdd3"/><path d="M105 230L100 270M135 230L140 270" stroke="#74677b" strokeWidth="3"/><rect x="98" y="267" width="44" height="24" rx="4" fill="#fffdf8" stroke="#74677b" strokeWidth="3"/></svg>;
+export const collagePosterLayers:CollagePosterLayer[]=[
+ {id:'disc',content:<Disc/>,x:290,y:75,width:610,height:610,delaySeconds:.6,enterSeconds:1,fromY:300,fromScale:.35,zIndex:1,spinDegreesPerSecond:8},
+ {id:'label',content:<Disc label/>,x:455,y:240,width:280,height:280,delaySeconds:1,enterSeconds:.8,fromY:180,fromScale:.4,zIndex:2,spinDegreesPerSecond:65},
+ {id:'cloud',content:<Cloud/>,x:-30,y:330,width:1030,height:215,delaySeconds:.35,enterSeconds:.7,fromX:-400,fromY:0,zIndex:3},
+ {id:'grass',content:<Grass/>,x:0,y:440,width:1200,height:230,delaySeconds:.1,enterSeconds:.7,fromY:260,zIndex:5},
+ {id:'cable',content:<Cable/>,x:100,y:120,width:310,height:480,delaySeconds:2.6,enterSeconds:.8,fromX:-350,fromY:160,fromRotation:-25,zIndex:4},
+ {id:'title',content:<div style={{textAlign:'center',fontSize:57,fontWeight:800,color:'#74677b'}}>SOFT HOUR<div style={{fontSize:22,letterSpacing:7,marginTop:12}}>把夏天贴进相册</div></div>,x:270,y:35,width:660,height:130,delaySeconds:1.9,enterSeconds:.6,fromY:-55,zIndex:7},
+ {id:'flower',content:<Flower/>,x:935,y:-55,width:250,height:250,delaySeconds:3.6,enterSeconds:.8,fromX:120,fromY:-150,fromRotation:35,rotation:12,swayDegrees:7,swayPeriodSeconds:3.5,zIndex:8},
+ {id:'footer',content:<div style={{display:'flex',justifyContent:'space-between',fontSize:20,color:'#74677b'}}><span>SUMMER / 01</span><span>tiny moments</span><span>ZYN ALBUM</span></div>,x:35,y:618,width:1130,height:30,delaySeconds:2.2,enterSeconds:.5,fromY:25,zIndex:9}
+];

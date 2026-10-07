@@ -1,0 +1,20 @@
+{
+  "id": "torn-paper-cloud-wipe",
+  "name": "撕纸云朵擦镜",
+  "composition": "TornPaperCloudWipeDemo",
+  "params": {
+    "beforeHoldSeconds": 1,
+    "wipeSeconds": 1.8,
+    "afterHoldSeconds": 1.4,
+    "paper": "#fffdf8",
+    "roughness": 28,
+    "direction": "left",
+    "accentSize": 220
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 4.2
+}
