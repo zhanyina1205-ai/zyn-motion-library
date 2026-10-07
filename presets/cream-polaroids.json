@@ -1,0 +1,59 @@
+{
+  "name": "奶油可爱旅行相册",
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
+  "perspective": 1800,
+  "perspectiveOrigin": "50% 68%",
+  "cards": [
+    {
+      "src": "images/sample-one.svg",
+      "x": 107,
+      "y": 468,
+      "width": 365,
+      "height": 398,
+      "angle": -9,
+      "delaySeconds": 0.26666666666666666,
+      "depth": 110,
+      "lateral": -55,
+      "caption": "a moment in time"
+    },
+    {
+      "src": "images/sample-two.svg",
+      "x": 525,
+      "y": 403,
+      "width": 380,
+      "height": 440,
+      "angle": 5,
+      "delaySeconds": 0.5666666666666667,
+      "depth": 175,
+      "lateral": 20,
+      "caption": "sunny little adventures"
+    },
+    {
+      "src": "images/sample-three.svg",
+      "x": 967,
+      "y": 466,
+      "width": 368,
+      "height": 397,
+      "angle": -6,
+      "delaySeconds": 0.8666666666666667,
+      "depth": -110,
+      "lateral": -25,
+      "caption": "hello, snowy mountains"
+    },
+    {
+      "src": "images/sample-four.svg",
+      "x": 1386,
+      "y": 403,
+      "width": 390,
+      "height": 440,
+      "angle": 8,
+      "delaySeconds": 1.1666666666666667,
+      "depth": -70,
+      "lateral": 55,
+      "caption": "collecting beautiful days"
+    }
+  ]
+}
