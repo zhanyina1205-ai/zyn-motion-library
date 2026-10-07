@@ -4,3 +4,7 @@ export {FloatingCard,FloatingPhotoCard} from './FloatingPhotoCard';
 export type {FloatingPhotoProps} from './FloatingPhotoCard';
 export {PerspectiveCarousel, CarouselPhotoCard, carouselDurationSeconds} from './PerspectiveCarousel';
 export type {PerspectiveCarouselProps, CarouselPhotoCardProps} from './PerspectiveCarousel';
+export {FlipCardStack, StackPhotoCard, flipStackDurationSeconds} from './FlipCardStack';
+export type {FlipCardStackProps} from './FlipCardStack';
+export {StickerSwap, stickerSwapDurationSeconds} from './StickerSwap';
+export type {StickerSwapProps, StickerSwapItem} from './StickerSwap';

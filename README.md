@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-三个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**与**立体相册轮转**。
+五个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**与**剪贴物快切**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,13 +11,15 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo` 或 `PerspectiveCarouselDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 或 `StickerSwapDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
 npm run render:slide
 npm run render:float
 npm run render:carousel
+npm run render:stack
+npm run render:stickers
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -141,3 +143,75 @@ const Album = () => <PerspectiveCarousel
 总时长 = `enterSeconds + turns × (holdSeconds + turnSeconds) + endHoldSeconds + exitSeconds`，所有秒数跟随 fps。调整 timing 时同步主 Composition 帧数；Demo 已用 `calculateMetadata` 根据速度与停留参数自动更新时长。几何参数基于画布 px，改变画幅需调整坐标和尺寸。
 
 预设见 `presets/perspective-carousel.json`。运行 `npm run render:carousel` 输出 `previews/perspective-carousel.mp4`；在 Studio 选择 `PerspectiveCarouselDemo` 可改方向、转动速度、停留、半径与透视。参考片段约 0—2.23 秒为轮转，末尾另一画面的切镜未纳入；环面数量、实际透视值与缓动无法由单一短片精确反推，采用可调整的近似值。
+
+## 04 · 弧面叠卡快翻
+
+`FlipCardStack` 按帧计算一叠卡片的前后层级：每次当前卡片向左斜翻，下一张展开到同一前景位置。卡片上下边采用轻微弧形剪裁。最后一张停留后推近到铺满画布，旧卡片退隐。独立 Demo `FlipCardStackDemo` 为 4 秒 / 1920×1080 / 30fps；包含 10 张卡片，从第 3 张开始，连续快翻 7 次。
+
+```tsx
+import {staticFile} from 'remotion';
+import {FlipCardStack, StackPhotoCard, flipStackDurationSeconds} from './motions';
+
+const cards = [
+  <StackPhotoCard src={staticFile('images/photo-1.jpg')} caption="第一段回忆"/>,
+  <StackPhotoCard src={staticFile('images/photo-2.jpg')} caption="第二段回忆"/>,
+  <StackPhotoCard src={staticFile('images/photo-3.jpg')} caption="第三段回忆"/>,
+];
+const options = {stepSeconds: 0.1, startIndex: 0};
+const Album = () => <FlipCardStack cards={cards} {...options}/>;
+// 主 Composition 帧数 = Math.ceil(flipStackDurationSeconds(cards.length, options) * fps - 1e-8)
+```
+
+| 参数 | 组件默认值 | 单位与作用 |
+|---|---|---|
+| cards | 必填 | ReactNode 数组，至少两张；支持任意卡片内容 |
+| cardWidth / cardHeight | 720 / 520 | px，卡片完整外框尺寸 |
+| centerX / centerY | 画布中心 | px；Demo 为 960 / 665 |
+| startIndex | 0 | 从零开始的索引；Demo 为 2，起始时两侧已有叠层 |
+| stepSeconds | 0.1 | 秒，每次翻卡；30fps 默认约 3 帧 |
+| enterSeconds / frontHoldSeconds | 0.4 / 0.85 | 秒，入场与最后一张推近前的停留 |
+| zoomSeconds / zoomHoldSeconds / exitSeconds | 0.5 / 1.1 / 0.45 | 秒，推近、铺满停留、退出 |
+| spread / depthStep | 52 / 35 | px，叠卡横向错位与后退距离 |
+| perspective / flipAngle | 1800 / 65 | px / 度，透视与翻转峰值 |
+| bend | 20 | px，上下弧边深度；0 为直边，低于卡片高度的四分之一 |
+| direction | left | left / right，快翻方向 |
+| zoomScale | 自动铺满 | 缩放倍数，默认 max(画宽/卡宽,画高/卡高) × 1.08；1 可关闭推近放大 |
+| StackPhotoCard src / caption | 图片必填 / a little memory | 替换图片地址和相框文字 |
+
+总时长 = 入场 + `(张数 - 1 - startIndex)` × 每次翻卡 + 前景停留 + 推近 + 铺满停留 + 退出，无转场重叠。秒数自动跟随 fps；3 帧的快速动作建议在 Studio 慢放查看，调慢 `stepSeconds` 后 Demo 会自动增加合成时长。像素坐标基于 Composition 画布，其他画幅需调整布局。
+
+照片放入 `public/images/` 并用 `staticFile()` 引用，预设为 `presets/curved-card-stack.json`。弧边剪裁近似原片的曲面轮廓，未对图片内容做真实网格弯曲。推近时刻与参考录屏的播放器操作重合，作为可调机制保留，不声称还原了原作者的完整三维模型。
+
+## 05 · 剪贴物快切
+
+`StickerSwap` 在固定舞台上逐个硬切替换物件，每件可以有独立尺寸、位置、角度、停留和背景。默认没有单物件弹跳或交叉淡化。外轮廓以 SVG 膨胀滤镜形成 5px 奶油白纸边。Demo `StickerSwapDemo` 为 5.8 秒 / 1920×1080 / 30fps，12 次物件展示分为三组背景。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {StickerSwap, stickerSwapDurationSeconds} from './motions';
+
+const items = [
+  {id:'flower',content:<CanvasImage src={staticFile('stickers/flower.png')} style={{width:'100%',height:'100%',objectFit:'contain'}}/>,angle:-8},
+  {id:'cup',content:<CanvasImage src={staticFile('stickers/cup.png')} style={{width:'100%',height:'100%',objectFit:'contain'}}/>,angle:6,durationSeconds:0.4},
+];
+const Film = () => <StickerSwap items={items} itemSeconds={0.35}/>;
+// 主 Composition 帧数 = Math.ceil(stickerSwapDurationSeconds(items.map(i => i.durationSeconds ?? 0.35)) * fps - 1e-8)
+```
+
+| 参数 | 组件默认值 | 单位与作用 |
+|---|---|---|
+| items | 必填 | 每项包含唯一 id 和 content，至少一项 |
+| itemSeconds | 0.35 | 秒，默认每件物件的展示时长 |
+| enterSeconds / endHoldSeconds / exitSeconds | 0.35 / 0.9 / 0.35 | 秒，整场入场、最后一件额外停留、整场退出 |
+| centerX / centerY | 画布中心 | px；Demo 为 960 / 640 |
+| stickerWidth / stickerHeight | 440 / 450 | px，默认物件盒子；Demo 为 600 / 540 |
+| outline | 5 | px，白边半径；0 不加边 |
+| drift | 0 | px，轻漂浮幅度；参考硬切预设保持 0 |
+| item.durationSeconds | itemSeconds | 秒，覆盖单项停留；需大于零 |
+| item.x / y / width / height | 场景默认值 | px，覆盖单项位置和尺寸 |
+| item.angle / scale | 0 / 1 | 度 / 倍数，覆盖单项倾斜和大小 |
+| item.background | 无 | ReactNode，铺在物件后面；切换背景时与物件同时硬切 |
+
+物件应使用透明 PNG、透明 SVG 或 React 图形，矩形照片也可保留相框。将素材放入 `public/stickers/`，替换 `content`；不用带白色不透明背景的截图冒充抠图。总时长 = 入场 + 各项停留之和 + 末项额外停留 + 退出，无交叉淡化重叠。30fps 的 0.35 秒不是整数帧，边界按实际帧时间依次落在 10 / 11 帧附近，Demo 按总时长取帧数。预设为 `presets/sticker-swap.json`。
+
+运行 `npm run render:stack` 或 `npm run render:stickers` 可分别导出。用于网页时，应再用 `ffmpeg -i input.mp4 -c copy -movflags +faststart output.mp4` 将索引移至文件开头；服务器支持 HTTP Range 时可拖动进度。素材均为可公开的通用 SVG，参考视频及其原始音轨不包含在公开项目中。

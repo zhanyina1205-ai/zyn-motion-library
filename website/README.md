@@ -9,3 +9,5 @@
 发布配置位于 `.github/workflows/pages.yml`；推送 `website/` 到 `main` 即可自动更新 GitHub Pages。
 
 新增第三个镜头：立体相册轮转（PerspectiveCarouselDemo），assets/perspective-carousel.mp4 与 .jpg 为通用素材预览。播放控制沿用 app.js 的 .shot 初始化与互斥播放。
+
+新增第四、第五个镜头：弧面叠卡快翻、剪贴物快切；各有独立 MP4 与 JPG，控制结构沿用 .shot，所有地址适配项目子路径。

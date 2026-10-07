@@ -1,0 +1,20 @@
+{
+  "composition": "StickerSwapDemo",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "motion": {
+    "itemSeconds": 0.35,
+    "enterSeconds": 0.35,
+    "endHoldSeconds": 0.9,
+    "exitSeconds": 0.35,
+    "centerX": 960,
+    "centerY": 640,
+    "stickerWidth": 600,
+    "stickerHeight": 540,
+    "outline": 5,
+    "drift": 0
+  }
+}

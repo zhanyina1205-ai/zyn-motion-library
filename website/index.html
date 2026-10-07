@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的三个可复用动效镜头：整体上滑、拍立得错落浮起与立体相册轮转。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的五个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻与剪贴物快切。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、立体轮播和作品展示。</p></div><div class="collection-note"><span class="note-number">03</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、立体轮播、叠卡与拼贴展示。</p></div><div class="collection-note"><span class="note-number">05</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -48,4 +48,41 @@
   "initialAngle": 8,
   "easing": [0.42, 0, 0.22, 1]
 }</code></pre><p class="detail-note">使用 PerspectiveCarousel 与 CarouselPhotoCard，至少三张卡片。尺寸、半径、透视以 px 为单位，角度以度为单位；秒数跟随 fps。总时长为入场 + 轮转格数 ×（停留 + 转动）+ 末尾停留 + 退出，默认 4.6 秒，无转场重叠。卡片数量决定每格转角，透视与缓动是参考的近似值，可继续调整。</p></div></details></div></article>
+
+<article class="shot" data-shot="curved-card-stack" id="curved-card-stack"><div class="shot-top"><span class="shot-index pink">04</span><div><p class="shot-label">CURVED CARD STACK</p><h2>弧面叠卡快翻</h2></div><span class="type">叠卡展示</span></div>
+<div class="screen mint"><video id="curved-card-stack-video" aria-label="弧面叠卡快翻动效预览" poster="assets/curved-card-stack.jpg" src="assets/curved-card-stack.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="curved-card-stack-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放弧面叠卡快翻">重播</button><output class="time" aria-live="off">0:00 / 0:04</output><label><span class="sr-only">弧面叠卡快翻播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="4" step="0.01" value="0" aria-label="弧面叠卡快翻播放进度"></div>
+<div class="shot-body"><p class="description">一叠照片快速斜翻，弧形纸边保留前后层次，最后一张推近到眼前。</p><div class="facts"><div><span>快翻节奏</span><strong>0.1 秒 / 张</strong></div><div><span>前景停留</span><strong>0.85 秒</strong></div><div><span>适合用在</span><strong>回忆 / 作品 / 相册</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>一叠照片快速斜翻，弧形纸边保留前后层次，最后一张推近到眼前。 图片和文字均可替换，独立示例包含入场、停留与退出。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "cardWidth": 720,
+  "cardHeight": 520,
+  "stepSeconds": 0.1,
+  "enterSeconds": 0.4,
+  "frontHoldSeconds": 0.85,
+  "zoomSeconds": 0.5,
+  "zoomHoldSeconds": 1.1,
+  "exitSeconds": 0.45,
+  "spread": 52,
+  "depthStep": 35,
+  "perspective": 1800,
+  "flipAngle": 65,
+  "bend": 20,
+  "direction": "left",
+  "startIndex": 2
+}</code></pre><p class="detail-note">使用 FlipCardStack 和 StackPhotoCard。坐标、叠层距离、透视和弧边以 px 为单位，角度以度为单位。Demo 为 10 张、从索引 2 开始，快翻 7 次。总时长为入场 + 翻卡次数 × 每次时长 + 停留 + 推近 + 铺满停留 + 退出，默认 4 秒，无重叠。弧边采用剪裁近似，可关闭；推近是参考中可观察到的可调机制。</p></div></details></div></article>
+
+<article class="shot" data-shot="sticker-swap" id="sticker-swap"><div class="shot-top"><span class="shot-index pink">05</span><div><p class="shot-label">STICKER SWAP</p><h2>剪贴物快切</h2></div><span class="type">拼贴快切</span></div>
+<div class="screen mint"><video id="sticker-swap-video" aria-label="剪贴物快切动效预览" poster="assets/sticker-swap.jpg" src="assets/sticker-swap.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="sticker-swap-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放剪贴物快切">重播</button><output class="time" aria-live="off">0:00 / 0:05</output><label><span class="sr-only">剪贴物快切播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="5.8" step="0.01" value="0" aria-label="剪贴物快切播放进度"></div>
+<div class="shot-body"><p class="description">白边剪贴物一件件快速替换，把花、杯子和小票贴进奶油相册。</p><div class="facts"><div><span>替换间隔</span><strong>0.35 秒 / 件</strong></div><div><span>切换方式</span><strong>直接硬切</strong></div><div><span>适合用在</span><strong>拼贴 / 手账 / 回忆</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>白边剪贴物一件件快速替换，把花、杯子和小票贴进奶油相册。 图片和文字均可替换，独立示例包含入场、停留与退出。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "itemSeconds": 0.35,
+  "enterSeconds": 0.35,
+  "endHoldSeconds": 0.9,
+  "exitSeconds": 0.35,
+  "centerX": 960,
+  "centerY": 640,
+  "stickerWidth": 600,
+  "stickerHeight": 540,
+  "outline": 5,
+  "drift": 0
+}</code></pre><p class="detail-note">使用 StickerSwap，替换为透明 PNG、SVG 或自己的 React 图形。每项可单独设置位置、尺寸、角度、时长和背景；白边以 px 为单位，秒数跟随 fps。12 件示例默认 5.8 秒：入场 + 各项停留之和 + 末件额外停留 + 退出，没有物件交叉淡化。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>

@@ -1,7 +1,7 @@
 {
   "name": "zyn-motion-library",
   "version": "1.0.0",
-  "description": "可复用的整体上滑、拍立得浮起与立体相册轮转镜头库",
+  "description": "ZYN 可复用动效镜头库：转场、相册、立体轮播、叠卡与剪贴物快切",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -26,6 +26,8 @@
     "check": "tsc --noEmit",
     "render:slide": "remotion render src/index.ts WholePageSlideDemo previews/whole-page-slide.mp4 --codec=h264 --crf=17",
     "render:float": "remotion render src/index.ts FloatingPolaroidsDemo previews/floating-polaroids.mp4 --codec=h264 --crf=17",
-    "render:carousel": "remotion render src/index.ts PerspectiveCarouselDemo previews/perspective-carousel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
+    "render:carousel": "remotion render src/index.ts PerspectiveCarouselDemo previews/perspective-carousel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:stack": "remotion render src/index.ts FlipCardStackDemo previews/curved-card-stack.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:stickers": "remotion render src/index.ts StickerSwapDemo previews/sticker-swap.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }

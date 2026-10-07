@@ -1,0 +1,27 @@
+{
+  "composition": "FlipCardStackDemo",
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "motion": {
+    "cardWidth": 720,
+    "cardHeight": 520,
+    "centerX": 960,
+    "centerY": 665,
+    "stepSeconds": 0.1,
+    "enterSeconds": 0.4,
+    "frontHoldSeconds": 0.85,
+    "zoomSeconds": 0.5,
+    "zoomHoldSeconds": 1.1,
+    "exitSeconds": 0.45,
+    "spread": 52,
+    "depthStep": 35,
+    "perspective": 1800,
+    "flipAngle": 65,
+    "bend": 20,
+    "direction": "left",
+    "startIndex": 2
+  }
+}
