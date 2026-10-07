@@ -1,0 +1,36 @@
+{
+  "id": "fan-photo-spread",
+  "name": "扇形相片展开",
+  "composition": "FanPhotoSpreadDemo",
+  "params": {
+    "width": 1240,
+    "height": 650,
+    "pivotX": 280,
+    "pivotY": 350,
+    "radius": 1100,
+    "startAngle": -36,
+    "endAngle": 10,
+    "closedAngle": -85,
+    "delaySeconds": 2.3,
+    "openSeconds": 0.45,
+    "staggerSeconds": 0.1,
+    "holdSeconds": 1.35,
+    "exitSeconds": 0.4,
+    "borderColor": "#fffdf8",
+    "borderWidth": 5,
+    "openingEasing": [
+      0.16,
+      1,
+      0.3,
+      1
+    ]
+  },
+  "photoCount": 4,
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 4.8,
+  "durationInFrames": 144
+}

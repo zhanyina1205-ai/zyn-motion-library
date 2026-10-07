@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-十四个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**、**撕纸云朵擦镜**、**双面翻卡扫光**与**游走聚光蒙版**。
+十五个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**、**折页相册揭物**、**中心开屏快闪**、**拼贴海报分层入场**、**撕纸云朵擦镜**、**双面翻卡扫光**、**游走聚光蒙版**与**扇形相片展开**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo`、`TornPaperCloudWipeDemo`、`FlipShineCardDemo` 或 `WanderingSpotlightDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 、`FoldPageAlbumDemo` 、`CenterApertureFlashDemo`、`LayeredCollagePosterDemo`、`TornPaperCloudWipeDemo`、`FlipShineCardDemo`、`WanderingSpotlightDemo` 或 `FanPhotoSpreadDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -29,6 +29,7 @@ npm run render:collage
 npm run render:cloudwipe
 npm run render:flipshine
 npm run render:spotlight
+npm run render:fan
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -557,3 +558,43 @@ const Scene = () => <WanderingSpotlight keyframes={keyframes}
 content 仅挂载一次，没有随窗口缩放或重复挂载。图片、文字卡、无副作用的视觉内容均可替换；要配视频时自行在外层编排音频与时长，组件只负责视觉蒙版。像素坐标以 Composition 为基准，关键帧比例以此组件画框为基准；不同尺寸需调圆形宽高比例。SVG 蒙版 ID 按组件实例生成，多实例不会互相覆盖。
 
 参考约 0.95—2.4 秒由矩形变圆形、2.7—5.1 秒沿路径游走、5.2—6.3 秒放大揭示。采用分段缓动近似原路径与真实缓动；前后章节封面、鼠标操作和参考人物音轨没有入库。运行 `npm run render:spotlight` 导出。
+
+
+## 15 · 扇形相片展开
+
+`FanPhotoSpread` 把至少两张图片裁成共享支点的扇区，由同一个收拢角度错落旋到各自的最终位置。照片和扇区一同转动，细白纸边保留分层关系。Demo 先上推纸背景、缩小并下移透明相机剪贴物，再展开四个相片扇区；撕纸、花朵、标题入场复用 `LayeredCollagePoster`。默认 4.8 秒 / 144 帧，1920×1080 / 30fps。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {FanPhotoSpread, fanPhotoSpreadDurationSeconds} from './motions';
+const options = {delaySeconds:.6, openSeconds:.45, staggerSeconds:.1};
+const photos = ['images/one.jpg','images/two.jpg','images/three.jpg'].map(src =>
+  <CanvasImage src={staticFile(src)} style={{width:'100%',height:'100%',objectFit:'cover'}}/>);
+const Scene = () => <div style={{position:'absolute',left:340,top:315,width:1240,height:650}}>
+  <FanPhotoSpread {...options} photos={photos}/>
+</div>;
+// 总帧数 = Math.ceil(fanPhotoSpreadDurationSeconds(photos.length, options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| photos | 必填，至少两项 | React 视觉内容，按数组顺序错落展开 |
+| width / height | 1240 / 650 | px，局部画框尺寸；组件在父容器左上角，不自动居中 |
+| pivotX / pivotY | 280 / 350 | px，共同支点，基于此局部画框 |
+| radius | 1100 | px，扇区边缘到支点距离，需足够覆盖目标区域 |
+| startAngle / endAngle | -36 / 10 | 度，整体扇面从第一扇区起边到最后扇区末边；差值需大于 0、小于 180 |
+| closedAngle | -85 | 度，各扇区相同的初始角度 |
+| delaySeconds / openSeconds / staggerSeconds | 2.3 / 0.45 / 0.1 | 秒，首项开始时间、每项展开时长、相邻项启动间隔 |
+| holdSeconds / exitSeconds | 1.35 / 0.4 | 秒，全部展开后停留 / 淡出；退出可以为 0 |
+| borderColor / borderWidth | #fffdf8 / 5 | 纸边颜色 / px，裁切内可见描边宽度；0 隐藏边框 |
+| openingEasing | [0.16,1,0.3,1] | 每项展开贝塞尔四值，横坐标为 0—1，角度进度限制 0—1 |
+
+总时长 = 延迟 + `(图片数 − 1) × 间隔` + 展开 + 停留 + 退出。错落项相互重叠，不把每项展开时长相加；第 i 项在 `delaySeconds + i × staggerSeconds` 开始。每个扇区角度为 `(endAngle − startAngle) / 图片数`，目标起角为 `startAngle + i × 扇区角度`；右方为 0°，正角顺时针。图片按数组顺序压在前项上方。动画按 frame / fps 求值，支持任意顺序 seek。
+
+photos 的每项内容应填满内部图片容器；为了避免旋转后露出空边，图片容器会向右扩到至少 pivotX + radius + 20px，向下覆盖扇区端点。图片使用 objectFit: cover，可用 objectPosition 调裁切焦点；扇区较窄，建议选主体在中心附近或纹理连续的图片。图片可能随旋转被裁切，不是完整矩形相册页。改变画幅需同步调整局部画框、支点、半径和外层位置。
+
+Demo 暴露 openSeconds、staggerSeconds、startAngle、endAngle，calculateMetadata 自动更新总帧数。纸背景上推与前景缩小在 0.65—1.2 秒同时发生；相片首项 2.3 秒启动。末项完成后 0.45 秒内补齐装饰，外层停留 0.9 秒并退出，与 FanPhotoSpread 的 1.35 秒末尾停留及 0.4 秒退出对齐。Demo 的外层容器在 960 / 640（Composition 像素坐标）。
+
+可在 `CameraForeground` 中将自绘相机 SVG 替换为透明 PNG / SVG 剪贴物，保留背景透明和白边；此组件不自动抠像。相机剪贴物从画框中部缩小到左下，用平面缩放与位移近似参考前景让位；照片扇区的透视层次也使用平面旋转近似。参考人物、音轨、摄像机与扩音器素材未复制。撕纸角为自绘通用图形，装饰动画复用已有拼贴组件。
+
+参考约 2.25—2.95 秒纸背景与前景变换、4.05—4.4 秒扇区展开、5.0—5.6 秒撕纸和贴纸补齐。真实缓动、透视焦点和扇区媒体裁切无法准确反推；保留共同支点、展开错落与前后遮挡。预设见 `presets/fan-photo-spread.json`，运行 `npm run render:fan` 导出。

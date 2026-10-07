@@ -1,3 +1,5 @@
+import {FanPhotoSpreadDemo} from './FanPhotoSpreadDemo';
+import {fanPhotoSpreadDurationSeconds} from './motions';
 import {WanderingSpotlightDemo,spotlightDemoKeyframes} from './WanderingSpotlightDemo';
 import {wanderingSpotlightDurationSeconds} from './motions';
 import {FlipShineCardDemo} from './FlipShineCardDemo';
@@ -61,4 +63,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="WanderingSpotlightDemo" component={WanderingSpotlightDemo} width={1920} height={1080} fps={30} durationInFrames={170}
  defaultProps={{pace:1,dimOpacity:.8,feather:0,captionSide:'top'}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(wanderingSpotlightDurationSeconds(spotlightDemoKeyframes.map(k=>({...k,timeSeconds:k.timeSeconds*Number(props.pace??1)})))*30-1e-8)})}/>
+ <Composition id="FanPhotoSpreadDemo" component={FanPhotoSpreadDemo} width={1920} height={1080} fps={30} durationInFrames={144}
+ defaultProps={{openSeconds:.45,staggerSeconds:.1,startAngle:-36,endAngle:10}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(fanPhotoSpreadDurationSeconds(4,props)*30-1e-8)})}/>
 </>;

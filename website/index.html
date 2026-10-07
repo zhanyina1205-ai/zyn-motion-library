@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的十四个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜、画面收窗信息卡、折页相册揭物、中心开屏快闪、拼贴海报分层入场、撕纸云朵擦镜、双面翻卡扫光与游走聚光蒙版。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的十五个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜、画面收窗信息卡、折页相册揭物、中心开屏快闪、拼贴海报分层入场、撕纸云朵擦镜、双面翻卡扫光、游走聚光蒙版与扇形相片展开。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">14</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">15</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -365,4 +365,31 @@
     }
   ]
 }</code></pre><p class="detail-note">使用 WanderingSpotlight，content 为填满画框的视觉内容。centerX / centerY 是 Composition 像素中心坐标；frameWidth / frameHeight 单位 px。keyframes 的 x / y / width / height 是相对组件画框的比例，timeSeconds 从入场结束起算；roundness 为 0—1，1 为椭圆，width × 画框宽 = height × 画框高时是圆。可按关键帧添加 caption、captionAngle（度）与 captionSide（top / bottom）。dimOpacity 为 0—1，feather / 虚线 / 字号单位 px。总时长 = 入场 + 末关键帧时间 + 最后停留 + 退出，默认 5.65 秒取整 170 帧 / 5.67 秒。可使用超出画框的大窗口揭示全图；边缘文字靠近画框时自动留在框内。参考弧形文字采用跟随位置及角度的单行文字近似。</p></div></details></div></article>
+
+<article class="shot" data-shot="fan-photo-spread" id="fan-photo-spread"><div class="shot-top"><span class="shot-index pink">15</span><div><p class="shot-label">FAN PHOTO SPREAD</p><h2>扇形相片展开</h2></div><span class="type">空间拼贴</span></div>
+<div class="screen mint"><video id="fan-photo-spread-video" aria-label="扇形相片展开动效预览" poster="assets/fan-photo-spread.jpg" src="assets/fan-photo-spread.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="fan-photo-spread-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放扇形相片展开">重播</button><output class="time" aria-live="off">0:00 / 0:04</output><label><span class="sr-only">扇形相片展开播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="4.8" step="0.01" value="0" aria-label="扇形相片展开播放进度"></div>
+<div class="shot-body"><p class="description">前景留在眼前，相片从共同支点逐层展开，把灵感铺成一张拼贴。</p><div class="facts"><div><span>展开方式</span><strong>共用一个支点</strong></div><div><span>错落间隔</span><strong>0.1 秒 / 层</strong></div><div><span>适合用在</span><strong>讲解 / 相册 / 拼贴</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>FanPhotoSpread 负责相片扇区展开；示例复用 LayeredCollagePoster 处理贴纸、撕纸、标题入场，并加入纸背景上推及前景缩小。</p><div class="parameter"><span>四张图片参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "width": 1240,
+  "height": 650,
+  "pivotX": 280,
+  "pivotY": 350,
+  "radius": 1100,
+  "startAngle": -36,
+  "endAngle": 10,
+  "closedAngle": -85,
+  "delaySeconds": 2.3,
+  "openSeconds": 0.45,
+  "staggerSeconds": 0.1,
+  "holdSeconds": 1.35,
+  "exitSeconds": 0.4,
+  "borderColor": "#fffdf8",
+  "borderWidth": 5,
+  "openingEasing": [
+    0.16,
+    1,
+    0.3,
+    1
+  ]
+}</code></pre><p class="detail-note">photos 至少两项，为填满容器的视觉内容。width / height / pivotX / pivotY / radius / borderWidth 单位 px，支点基于本组件画框；放置位置由外层容器决定。startAngle / endAngle 为整体扇面边界，closedAngle 是收拢角度，单位度；正角顺时针。每项占相同角度，从相同初始角度旋到自己的扇区。总时长 = 延迟 +（图片数 − 1）× 间隔 + 展开 + 停留 + 退出，四项默认 4.8 秒 / 144 帧。错落展开相互重叠。透明前景可在 Demo 的 CameraForeground 替换，使用 PNG / SVG 保留抠像边缘；示例不执行自动抠像，扇面是可调平面近似。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>
