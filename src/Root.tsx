@@ -1,3 +1,5 @@
+import {FoldPageAlbumDemo} from './FoldPageAlbumDemo';
+import {foldPageAlbumDurationSeconds} from './motions';
 import {MediaWindowCardDemo} from './MediaWindowCardDemo';
 import {mediaWindowCardDurationSeconds} from './motions';
 import {ThumbnailPanelDemo} from './ThumbnailPanelDemo';
@@ -31,4 +33,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="MediaWindowCardDemo" component={MediaWindowCardDemo} width={1920} height={1080} fps={30} durationInFrames={113}
  defaultProps={{shrinkSeconds:0.55,settleSeconds:0.45,bounce:65}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(mediaWindowCardDurationSeconds(props)*30-1e-8)})}/>
+ <Composition id="FoldPageAlbumDemo" component={FoldPageAlbumDemo} width={1920} height={1080} fps={30} durationInFrames={198}
+ defaultProps={{turnSeconds:0.8,curlAngle:20,popupDepth:65}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(foldPageAlbumDurationSeconds(4,props)*30-1e-8)})}/>
 </>;

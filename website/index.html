@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的八个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜与画面收窗信息卡。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的九个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片、色差故障切镜、画面收窗信息卡与折页相册揭物。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">08</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">09</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -156,4 +156,29 @@
   "paper": "#eee6f2",
   "captionColor": "#f9e2ec"
 }</code></pre><p class="detail-note">使用 MediaWindowCard。centerX / centerY 基于整个画布；窗口、标题和说明位置基于卡片左上角，尺寸和回弹以 px 为单位。总时长 = 入场 + 完整画面停留 + 收窗 + max（回稳，说明延迟 + 显现）+ 停留 + 退出。默认 3.75 秒，取整到 113 帧约 3.77 秒。媒体内容需填满窗口，可通过 object-position 调整裁切焦点。参考后段转场可接 <a href="#chromatic-glitch">色差故障切镜</a>，衔接参数保存在 presets/media-window-glitch.json。</p></div></details></div></article>
+
+<article class="shot" data-shot="fold-page-album" id="fold-page-album"><div class="shot-top"><span class="shot-index pink">09</span><div><p class="shot-label">FOLD PAGE ALBUM</p><h2>折页相册揭物</h2></div><span class="type">立体折页</span></div>
+<div class="screen mint"><video id="fold-page-album-video" aria-label="折页相册揭物动效预览" poster="assets/fold-page-album.jpg" src="assets/fold-page-album.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="fold-page-album-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放折页相册揭物">重播</button><output class="time" aria-live="off">0:00 / 0:06</output><label><span class="sr-only">折页相册揭物播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="6.6" step="0.01" value="0" aria-label="折页相册揭物播放进度"></div>
+<div class="shot-body"><p class="description">左页保持固定，右页沿书脊折起，依次翻出装饰页和立体小物件。</p><div class="facts"><div><span>翻页时长</span><strong>0.8 秒 / 页</strong></div><div><span>纸张弯曲</span><strong>12 段 · 20°</strong></div><div><span>适合用在</span><strong>产品 / 相册 / 揭晓</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>页面、装饰和物件均可替换。纸张沿固定书脊分段弯折，最后的小物件可开启或省略。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "centerX": 960,
+  "centerY": 625,
+  "pageWidth": 550,
+  "pageHeight": 640,
+  "perspective": 3200,
+  "strips": 12,
+  "curlAngle": 20,
+  "enterSeconds": 0.4,
+  "initialHoldSeconds": 0.8,
+  "turnSeconds": 0.8,
+  "betweenHoldSeconds": 0.25,
+  "popupDelaySeconds": 0.3,
+  "popupSeconds": 0.7,
+  "endHoldSeconds": 1.1,
+  "exitSeconds": 0.4,
+  "popupWidth": 220,
+  "popupHeight": 370,
+  "popupDepth": 65,
+  "paper": "#fffdf8"
+}</code></pre><p class="detail-note">使用 FoldPageAlbum，leftPage 是固定左页，rightPages 是依次揭示的右页，popup 是可选物件。像素基于整个画布；popupX / popupY 相对右页左上角。四页默认 6.6 秒：入场 + 初始停留 + 三次翻页 + 两次页间停留 + 物件延迟 + 展开 + 末尾停留 + 退出。纸页折到书脊后隐去，分段曲面近似纸张弯曲；物件是二维素材在三维空间展开，并非实体瓶体模型。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>

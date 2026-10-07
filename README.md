@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-八个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**与**画面收窗信息卡**。
+九个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**、**画面收窗信息卡**与**折页相册揭物**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 或 `MediaWindowCardDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 、`MediaWindowCardDemo` 或 `FoldPageAlbumDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -23,6 +23,7 @@ npm run render:stickers
 npm run render:panel
 npm run render:glitch
 npm run render:window
+npm run render:book
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -326,3 +327,43 @@ const Card = () => <MediaWindowCard {...options}
 素材放入 `public/images/`；窗口内使用 `width/height:100%` 填充，并用 `objectPosition` 调整裁切焦点。其他画幅需同步调整卡片尺寸、窗口坐标与文字大小。组件使用一次衰减余弦近似参考回弹，真实缓动、裁切焦点和原片滤镜参数无法从单一录屏确定。预设见 `presets/media-window-card.json`，运行 `npm run render:window` 导出。
 
 本次参考后段与已有 **07 · 色差故障切镜** 相同，不增加重复镜头。衔接预设 `presets/media-window-glitch.json` 直接用于 `ChromaticGlitchTransition`，不是新增 Composition：前景停留 2.6 秒、转场 0.65 秒、后景停留 1.3 秒，总计 4.55 秒。自行提供 `before`、`after`、`badge` JSX；若前景使用 `MediaWindowCard`，转场会在前景卡片停留期间开始，以中点切镜覆盖其后续退出。对运动媒体和音轨，应避免把有副作用或音频的内容克隆进色差层，参见 07 的说明。公开Demo为自绘通用桌面 SVG，不包含参考中的人物、商标或音轨。
+
+
+## 09 · 折页相册揭物
+
+`FoldPageAlbum` 固定左页，将右页沿书脊弯折收至侧面，依次揭出下一页，最后可展开一个透明物件。Demo `FoldPageAlbumDemo` 使用四个右页，连续三次折页，6.6 秒 / 198 帧，1920×1080 / 30fps。公开内容为自绘通用护理瓶、软管和花叶 SVG。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {FoldPageAlbum, foldPageAlbumDurationSeconds} from './motions';
+const options = {turnSeconds: 0.8, curlAngle: 20, popupDepth: 65};
+const Photo = ({src}: {src: string}) => <CanvasImage
+  src={staticFile(src)} style={{width:'100%',height:'100%',objectFit:'contain'}}/>;
+const rightPages = [<Photo src="images/page-1.png"/>, <div/>,
+  <Photo src="images/page-3.png"/>, <Photo src="images/page-4.png"/>];
+const Book = () => <FoldPageAlbum {...options}
+  leftPage={<Photo src="images/left.png"/>} rightPages={rightPages}
+  popup={<Photo src="images/cutout.png"/>}/>;
+// 主 Composition 帧数 = Math.ceil(foldPageAlbumDurationSeconds(rightPages.length, options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| leftPage / rightPages / popup | 必填 / 至少两页 / 可省略 | React 视觉内容；popup 使用透明素材 |
+| centerX / centerY | 画布中心 | px，整个展开相册中心；Demo 为 960 / 625 |
+| pageWidth / pageHeight | 550 / 640 | px，单页大小 |
+| perspective / strips / curlAngle | 3200 / 12 / 20 | px / 段数 / 度，透视、分段弯折精度和曲率；strips 4—48，curlAngle 0—25 |
+| paper | #fffdf8 | CSS 颜色，纸面底色 |
+| enterSeconds / initialHoldSeconds | 0.4 / 0.8 | 秒，入场和首次翻页前停留 |
+| turnSeconds / betweenHoldSeconds | 0.8 / 0.25 | 秒，单次折页及翻页之间的停留 |
+| popupDelaySeconds / popupSeconds | 0.3 / 0.7 | 秒，最后一页出现后延迟和物件展开时长 |
+| endHoldSeconds / exitSeconds | 1.1 / 0.4 | 秒，结束停留和退出 |
+| popupWidth / popupHeight | 220 / 370 | px，物件尺寸 |
+| popupX / popupY | 单页宽 × 0.42 / 高 × 0.52 | px，物件中心，相对右页左上角 |
+| popupDepth | 65 | px，展开时向前突出的距离 |
+
+总时长 = 入场 + 初始停留 + `(右页数 - 1) × 折页时长` + `(右页数 - 2) × 页间停留` + 物件延迟 + 物件展开 + 结束停留 + 退出。省略 popup 时仍保留其延迟与展开时间作为末页停留；所有秒数跟随 fps。Demo 用 calculateMetadata 自动更新帧数。位置与尺寸以 Composition 像素为基准，改变画幅需调整布局。
+
+纸面用窄条 3D 平面近似弯曲，沿书脊收至约 90° 后揭出下一页；未模拟真实纸张翻至左侧的 180° 运动或手部操作。最后物件是透明平面向前展开，未重建原片瓶身的立体网格。右页内容会被克隆至各分段，请使用无音频、无副作用、无重复全局 DOM ID 的视觉 JSX，声音另行编排。
+
+素材放入 `public/images/`，预设见 `presets/fold-page-album.json`；运行 `npm run render:book` 导出。参考视频及原始音轨仅用于本地分析，不包含在公开仓库中。

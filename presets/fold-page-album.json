@@ -1,0 +1,32 @@
+{
+  "id": "fold-page-album",
+  "name": "折页相册揭物",
+  "composition": "FoldPageAlbumDemo",
+  "params": {
+    "centerX": 960,
+    "centerY": 625,
+    "pageWidth": 550,
+    "pageHeight": 640,
+    "perspective": 3200,
+    "strips": 12,
+    "curlAngle": 20,
+    "enterSeconds": 0.4,
+    "initialHoldSeconds": 0.8,
+    "turnSeconds": 0.8,
+    "betweenHoldSeconds": 0.25,
+    "popupDelaySeconds": 0.3,
+    "popupSeconds": 0.7,
+    "endHoldSeconds": 1.1,
+    "exitSeconds": 0.4,
+    "popupWidth": 220,
+    "popupHeight": 370,
+    "popupDepth": 65,
+    "paper": "#fffdf8"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 6.6
+}
