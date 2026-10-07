@@ -1,7 +1,7 @@
 {
   "name": "zyn-motion-library",
   "version": "1.0.0",
-  "description": "ZYN 可复用动效镜头库：转场、相册、立体轮播、叠卡与剪贴物快切",
+  "description": "ZYN 可复用动效镜头库：相册、叠卡、拼贴、布局变形与创意转场",
   "repository": {},
   "license": "UNLICENSED",
   "private": true,
@@ -28,6 +28,8 @@
     "render:float": "remotion render src/index.ts FloatingPolaroidsDemo previews/floating-polaroids.mp4 --codec=h264 --crf=17",
     "render:carousel": "remotion render src/index.ts PerspectiveCarouselDemo previews/perspective-carousel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:stack": "remotion render src/index.ts FlipCardStackDemo previews/curved-card-stack.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
-    "render:stickers": "remotion render src/index.ts StickerSwapDemo previews/sticker-swap.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
+    "render:stickers": "remotion render src/index.ts StickerSwapDemo previews/sticker-swap.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:panel": "remotion render src/index.ts ThumbnailPanelDemo previews/thumbnail-panel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:glitch": "remotion render src/index.ts ChromaticGlitchDemo previews/chromatic-glitch.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }

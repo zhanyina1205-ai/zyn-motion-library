@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZYN 镜头库 · 动效收藏</title>
-<meta name="description" content="浏览 ZYN 的五个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻与剪贴物快切。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
+<meta name="description" content="浏览 ZYN 的七个可复用动效镜头：整体上滑、拍立得错落浮起、立体相册轮转、弧面叠卡快翻、剪贴物快切、缩略条展开卡片与色差故障切镜。播放、逐段查看，发现适合章节转场与相册展示的运动方式。"><meta name="theme-color" content="#fff9f0">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eee4f2'/%3E%3Ctext x='32' y='47' text-anchor='middle' font-family='Georgia,serif' font-size='46' fill='%23665275'%3EZ%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script>
 </head><body><a class="skip" href="#collection">跳到镜头</a><div class="page">
 <header class="topline"><a class="brand" href="./" aria-label="ZYN 镜头库首页"><span class="mark">Z</span><span>ZYN<span class="brand-sub">MOTION LIBRARY</span></span></a><span class="edition">COLLECTION / 01</span></header>
-<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、立体轮播、叠卡与拼贴展示。</p></div><div class="collection-note"><span class="note-number">05</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
+<main><section class="intro" aria-labelledby="title"><div><p class="eyebrow">A LITTLE COLLECTION OF MOTION</p><h1 id="title">ZYN <span>镜头库</span><i>。</i></h1><p class="lead">把喜欢的运动方式，收藏起来。<br>用于章节切换、相册、叠卡、拼贴和信息展示。</p></div><div class="collection-note"><span class="note-number">07</span><span>个镜头模板<br><em>small moves, lovely moments</em></span></div></section>
 <section id="collection" class="collection" aria-label="动效镜头合集">
 <article class="shot" data-shot="slide"><div class="shot-top"><span class="shot-index">01</span><div><p class="shot-label">SCENE TRANSITION</p><h2>整体上滑</h2></div><span class="type">章节转场</span></div>
 <div class="screen blue"><video id="slide-video" aria-label="整体上滑动效预览" poster="assets/upward-slide.jpg" src="assets/upward-slide.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
@@ -85,4 +85,48 @@
   "outline": 5,
   "drift": 0
 }</code></pre><p class="detail-note">使用 StickerSwap，替换为透明 PNG、SVG 或自己的 React 图形。每项可单独设置位置、尺寸、角度、时长和背景；白边以 px 为单位，秒数跟随 fps。12 件示例默认 5.8 秒：入场 + 各项停留之和 + 末件额外停留 + 退出，没有物件交叉淡化。</p></div></details></div></article>
+
+<article class="shot" data-shot="thumbnail-panel" id="thumbnail-panel"><div class="shot-top"><span class="shot-index pink">06</span><div><p class="shot-label">THUMBNAIL PANEL</p><h2>缩略条展开卡片</h2></div><span class="type">布局变形</span></div>
+<div class="screen mint"><video id="thumbnail-panel-video" aria-label="缩略条展开卡片动效预览" poster="assets/thumbnail-panel.jpg" src="assets/thumbnail-panel.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="thumbnail-panel-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放缩略条展开卡片">重播</button><output class="time" aria-live="off">0:00 / 0:03</output><label><span class="sr-only">缩略条展开卡片播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="3.6666666666666665" step="0.01" value="0" aria-label="缩略条展开卡片播放进度"></div>
+<div class="shot-body"><p class="description">缩略图逐个出现，横条向上展开，同一组图片变成双列信息卡。</p><div class="facts"><div><span>展开时长</span><strong>0.55 秒</strong></div><div><span>布局变化</span><strong>横条 → 双列</strong></div><div><span>适合用在</span><strong>产品 / 相册 / 信息卡</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>缩略图逐个出现，横条向上展开，同一组图片变成双列信息卡。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "centerX": 1190,
+  "stripTop": 710,
+  "panelTop": 245,
+  "stripWidth": 620,
+  "stripHeight": 155,
+  "panelWidth": 550,
+  "panelHeight": 650,
+  "columns": 2,
+  "padding": 32,
+  "gap": 18,
+  "thumbnailSize": 105,
+  "gridHeight": 385,
+  "enterSeconds": 0.3,
+  "staggerSeconds": 0.12,
+  "stripHoldSeconds": 0.59,
+  "expandSeconds": 0.55,
+  "panelHoldSeconds": 1.45,
+  "exitSeconds": 0.4,
+  "drop": 30,
+  "paper": "#fffdf8"
+}</code></pre><p class="detail-note">使用 ThumbnailPanel，items 是可替换内容数组。像素参数基于 Composition 画布；秒数跟随 fps。总时长 = 入场 +（项目数 − 1）× 错落间隔 + 横条停留 + 展开 + 卡片停留 + 退出；Demo 四项，取整到 110 帧约 3.67 秒。格子容量需适配图片数，body 与 signature 为可替换内容。</p></div></details></div></article>
+
+<article class="shot" data-shot="chromatic-glitch" id="chromatic-glitch"><div class="shot-top"><span class="shot-index pink">07</span><div><p class="shot-label">CHROMATIC GLITCH</p><h2>色差故障切镜</h2></div><span class="type">创意转场</span></div>
+<div class="screen mint"><video id="chromatic-glitch-video" aria-label="色差故障切镜动效预览" poster="assets/chromatic-glitch.jpg" src="assets/chromatic-glitch.mp4" muted playsinline loop controls preload="metadata"></video><div class="video-error" hidden><p>视频暂时无法加载</p><button class="retry" type="button">重新加载</button></div></div>
+<div class="controls" hidden><button class="play" type="button" aria-controls="chromatic-glitch-video"><span class="play-icon" aria-hidden="true"></span><span class="play-label">播放</span></button><button class="replay" type="button" aria-label="从头播放色差故障切镜">重播</button><output class="time" aria-live="off">0:00 / 0:03</output><label><span class="sr-only">色差故障切镜播放速度</span><select class="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select></label><input class="progress" type="range" min="0" max="3.2" step="0.01" value="0" aria-label="色差故障切镜播放进度"></div>
+<div class="shot-body"><p class="description">色差错位和横向切片交接两幕，图标从下方旋转上浮，再轻快退出。</p><div class="facts"><div><span>转场时长</span><strong>0.9 秒</strong></div><div><span>错位幅度</span><strong>22 px</strong></div><div><span>适合用在</span><strong>章节 / 教程 / 揭晓</strong></div></div><details><summary>镜头说明与参数<span aria-hidden="true">＋</span></summary><div class="detail-content"><p>色差错位和横向切片交接两幕，图标从下方旋转上浮，再轻快退出。</p><div class="parameter"><span>参考设置</span><button class="copy" type="button">复制参数</button></div><pre><code>{
+  "beforeHoldSeconds": 1,
+  "transitionSeconds": 0.9,
+  "afterHoldSeconds": 1.3,
+  "split": 22,
+  "sliceShift": 30,
+  "slices": 7,
+  "badgeSize": 280,
+  "badgeX": 1010,
+  "badgeY": 550,
+  "colorA": "#f5bdd3",
+  "colorB": "#ccded7",
+  "tintOpacity": 0.48
+}</code></pre><p class="detail-note">使用 ChromaticGlitchTransition，before / after 是两幕内容，badge 可省略或换成自己的图标。总时长 = 前景停留 + 转场 + 后景停留，默认 3.2 秒；在转场中点硬切。默认淡粉与薄荷叠色近似色差，横切片逐帧确定。位移、尺寸以 px 为单位，秒数跟随 fps。两幕应为静态视觉 JSX，音轨单独编排。</p></div></details></div></article>
 </section></main><footer><span>ZYN · MOTION LIBRARY</span><span>让每一个小镜头，有自己的节奏。</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div></body></html>

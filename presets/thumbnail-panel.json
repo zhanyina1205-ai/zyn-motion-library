@@ -1,0 +1,33 @@
+{
+  "id": "thumbnail-panel",
+  "name": "缩略条展开卡片",
+  "composition": "ThumbnailPanelDemo",
+  "params": {
+    "centerX": 1190,
+    "stripTop": 710,
+    "panelTop": 245,
+    "stripWidth": 620,
+    "stripHeight": 155,
+    "panelWidth": 550,
+    "panelHeight": 650,
+    "columns": 2,
+    "padding": 32,
+    "gap": 18,
+    "thumbnailSize": 105,
+    "gridHeight": 385,
+    "enterSeconds": 0.3,
+    "staggerSeconds": 0.12,
+    "stripHoldSeconds": 0.59,
+    "expandSeconds": 0.55,
+    "panelHoldSeconds": 1.45,
+    "exitSeconds": 0.4,
+    "drop": 30,
+    "paper": "#fffdf8"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 3.6666666666666665
+}

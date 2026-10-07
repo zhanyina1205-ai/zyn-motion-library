@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-五个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**与**剪贴物快切**。
+七个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**与**色差故障切镜**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 或 `StickerSwapDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 或 `ChromaticGlitchDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -20,6 +20,8 @@ npm run render:float
 npm run render:carousel
 npm run render:stack
 npm run render:stickers
+npm run render:panel
+npm run render:glitch
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -215,3 +217,70 @@ const Film = () => <StickerSwap items={items} itemSeconds={0.35}/>;
 物件应使用透明 PNG、透明 SVG 或 React 图形，矩形照片也可保留相框。将素材放入 `public/stickers/`，替换 `content`；不用带白色不透明背景的截图冒充抠图。总时长 = 入场 + 各项停留之和 + 末项额外停留 + 退出，无交叉淡化重叠。30fps 的 0.35 秒不是整数帧，边界按实际帧时间依次落在 10 / 11 帧附近，Demo 按总时长取帧数。预设为 `presets/sticker-swap.json`。
 
 运行 `npm run render:stack` 或 `npm run render:stickers` 可分别导出。用于网页时，应再用 `ffmpeg -i input.mp4 -c copy -movflags +faststart output.mp4` 将索引移至文件开头；服务器支持 HTTP Range 时可拖动进度。素材均为可公开的通用 SVG，参考视频及其原始音轨不包含在公开项目中。
+
+## 06 · 缩略条展开卡片
+
+`ThumbnailPanel` 把同一组内容从缩略横条连续移动到多列卡片：缩略图错落出现，标题退隐，横条下移，再向上展开；正文与签名随后出现。Demo 四项，为 110 帧 / 约 3.67 秒。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {ThumbnailPanel, thumbnailPanelDurationSeconds} from './motions';
+const items = ['one.jpg','two.jpg','three.jpg','four.jpg'].map(src =>
+  <CanvasImage src={staticFile('images/'+src)} style={{width:'100%',height:'100%',objectFit:'cover'}}/>);
+const options = {expandSeconds:0.55, staggerSeconds:0.12};
+const Card = () => <ThumbnailPanel items={items} {...options}
+  heading="COLLECTION" body={<p>这里替换正文</p>} signature="little moments"/>;
+// 主 Composition 帧数 = Math.ceil(thumbnailPanelDurationSeconds(items.length, options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| items | 必填 | ReactNode 数组，至少一项；按同一索引从横条移到网格 |
+| heading / body / signature | 无 | ReactNode，可替换标题、正文、签名；标题先退隐 |
+| centerX | 画布宽度的一半 | px，水平中心；Demo 1190 |
+| stripTop / panelTop | 680 / 230 | px，初始横条与最终卡片的上边；Demo 710 / 245 |
+| stripWidth / stripHeight | 620 / 155 | px，初始横条尺寸 |
+| panelWidth / panelHeight | 550 / 650 | px，展开后卡片尺寸 |
+| columns | 2 | 整数，最终网格列数 |
+| padding / gap | 32 / 18 | px，卡片边距、网格间距 |
+| thumbnailSize / gridHeight | 105 / 385 | px，初始缩略图正方形边长、最终图片网格总高 |
+| enterSeconds / staggerSeconds | 0.3 / 0.12 | 秒，每张入场时长、相邻入场错落间隔 |
+| stripHoldSeconds / expandSeconds | 0.59 / 0.55 | 秒，全部缩略图入场后横条停留、展开时间 |
+| panelHoldSeconds / exitSeconds | 1.45 / 0.4 | 秒，展开后停留、整卡淡出下移 |
+| drop | 30 | px，展开前短暂下移幅度 |
+| paper | #fffdf8 | CSS 颜色，纸面底色 |
+
+总时长 = `enterSeconds + (项目数 - 1) × staggerSeconds + stripHoldSeconds + expandSeconds + panelHoldSeconds + exitSeconds`；总秒数向上取整到帧。入场错落会重叠，展开期间图片自身移动带约 0.025 秒错落，已包含在默认卡片停留内。正文在展开末段开始出现，签名在展开后 0.55—0.85 秒出现，若要完整看见签名，`panelHoldSeconds` 应至少 0.85 秒。
+
+像素参数以 Composition 画布为基准；其他画幅需调坐标和尺寸。更多图片要同步调整横条宽度、缩略图大小、列数与网格高度；组件会检查图片格子的基础空间，正文仍需自行控制高度。图片放在 `public/images/`，预设为 `presets/thumbnail-panel.json`。Demo `calculateMetadata` 随展开时长和错落间隔更新总帧数。运行 `npm run render:panel`。
+
+## 07 · 色差故障切镜
+
+`ChromaticGlitchTransition` 先停留前一幕，在短暂叠色错位和水平切片中切到后一幕，可选图标从下方斜转上浮，再下沉退出。切镜发生在 `transitionSeconds` 的中点，背景不交叉淡化。Demo 为 3.2 秒 / 96 帧。
+
+```tsx
+import {AbsoluteFill} from 'remotion';
+import {ChromaticGlitchTransition, chromaticGlitchDurationSeconds} from './motions';
+const options = {beforeHoldSeconds:1,transitionSeconds:0.9,afterHoldSeconds:1.3};
+const Cut = () => <ChromaticGlitchTransition {...options}
+  before={<AbsoluteFill style={{background:'#e4efe8'}}>前一幕</AbsoluteFill>}
+  after={<AbsoluteFill style={{background:'#eee6f2'}}>后一幕</AbsoluteFill>}
+  badge={<div style={{width:'100%',height:'100%',background:'#74677b',color:'#fffdf8'}}>Z</div>}/>;
+// 主 Composition 帧数 = Math.ceil(chromaticGlitchDurationSeconds(options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| before / after | 必填 | ReactNode，前后两幕视觉内容；背景可用 AbsoluteFill |
+| badge | 无 | ReactNode，可替换图标；省略只保留色差和切片 |
+| beforeHoldSeconds / transitionSeconds / afterHoldSeconds | 1 / 0.9 / 1.3 | 秒，前景停留、错位转场、后景停留 |
+| split / sliceShift | 22 / 30 | px，彩色叠层分离与横切片位移峰值 |
+| slices | 7 | 正整数，横向切片数量 |
+| badgeSize | 280 | px，图标容器正方形尺寸 |
+| badgeX / badgeY | 画布中心 | px，图标落位中心；Demo 1010 / 550 |
+| colorA / colorB | #f5bdd3 / #ccded7 | CSS 颜色，两个分离叠层色彩 |
+| tintOpacity | 0.48 | 0—1，叠色最大不透明度 |
+
+总时长 = 前景停留 + 转场 + 后景停留，没有场景淡化重叠；秒数跟随 fps。图标在转场前 0.1 秒开始入场，转场后 0.35 秒开始下沉，0.65 秒后完全退出；需要完整图标退出时，`afterHoldSeconds` 至少为 1 秒。空间尺寸基于当前画布，图标进出距离自动跟随画布高度。
+
+实现使用按帧确定的正弦扰动和 CSS 叠色近似参考的 RGB 分离，不是原片滤镜算法；默认淡粉/薄荷配色遵循镜头库风格。两幕会克隆用于叠层和切片，应使用无音频、无副作用、无全局重复 DOM ID 的视觉 JSX；音频另外编排。图标素材放在 `public/icons/`，可用 CanvasImage 与 staticFile 引用。预设为 `presets/chromatic-glitch.json`。Demo `calculateMetadata` 随转场时长自动增加总帧数。运行 `npm run render:glitch`。

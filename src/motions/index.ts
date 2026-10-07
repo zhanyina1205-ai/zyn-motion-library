@@ -8,3 +8,7 @@ export {FlipCardStack, StackPhotoCard, flipStackDurationSeconds} from './FlipCar
 export type {FlipCardStackProps} from './FlipCardStack';
 export {StickerSwap, stickerSwapDurationSeconds} from './StickerSwap';
 export type {StickerSwapProps, StickerSwapItem} from './StickerSwap';
+export {ThumbnailPanel, thumbnailPanelDurationSeconds} from './ThumbnailPanel';
+export type {ThumbnailPanelProps} from './ThumbnailPanel';
+export {ChromaticGlitchTransition, chromaticGlitchDurationSeconds} from './ChromaticGlitchTransition';
+export type {ChromaticGlitchProps} from './ChromaticGlitchTransition';

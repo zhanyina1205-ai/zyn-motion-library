@@ -1,0 +1,25 @@
+{
+  "id": "chromatic-glitch",
+  "name": "色差故障切镜",
+  "composition": "ChromaticGlitchDemo",
+  "params": {
+    "beforeHoldSeconds": 1,
+    "transitionSeconds": 0.9,
+    "afterHoldSeconds": 1.3,
+    "split": 22,
+    "sliceShift": 30,
+    "slices": 7,
+    "badgeSize": 280,
+    "badgeX": 1010,
+    "badgeY": 550,
+    "colorA": "#f5bdd3",
+    "colorB": "#ccded7",
+    "tintOpacity": 0.48
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 3.2
+}

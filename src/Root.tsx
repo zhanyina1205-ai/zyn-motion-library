@@ -1,3 +1,6 @@
+import {ThumbnailPanelDemo} from './ThumbnailPanelDemo';
+import {ChromaticGlitchDemo} from './ChromaticGlitchDemo';
+import {thumbnailPanelDurationSeconds,chromaticGlitchDurationSeconds} from './motions';
 import {Composition} from 'remotion';
 import {WholePageSlideDemo,FloatingPolaroidsDemo} from './Demos';
 import {PerspectiveCarouselDemo} from './PerspectiveCarouselDemo';
@@ -17,4 +20,10 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="StickerSwapDemo" component={StickerSwapDemo} width={1920} height={1080} fps={30} durationInFrames={174}
    defaultProps={{itemSeconds: 0.35, outline: 5, drift: 0}}
    calculateMetadata={({props}) => ({durationInFrames: Math.ceil(stickerSwapDurationSeconds(Array.from({length:12}, () => Number(props.itemSeconds ?? 0.35))) * 30 - 1e-8)})}/>
+ <Composition id="ThumbnailPanelDemo" component={ThumbnailPanelDemo} width={1920} height={1080} fps={30} durationInFrames={110}
+ defaultProps={{expandSeconds:0.55,staggerSeconds:0.12,drop:30}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(thumbnailPanelDurationSeconds(4,props)*30-1e-8)})}/>
+ <Composition id="ChromaticGlitchDemo" component={ChromaticGlitchDemo} width={1920} height={1080} fps={30} durationInFrames={96}
+ defaultProps={{transitionSeconds:0.9,split:22,sliceShift:30}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(chromaticGlitchDurationSeconds(props)*30-1e-8)})}/>
 </>;
