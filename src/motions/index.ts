@@ -12,3 +12,5 @@ export {ThumbnailPanel, thumbnailPanelDurationSeconds} from './ThumbnailPanel';
 export type {ThumbnailPanelProps} from './ThumbnailPanel';
 export {ChromaticGlitchTransition, chromaticGlitchDurationSeconds} from './ChromaticGlitchTransition';
 export type {ChromaticGlitchProps} from './ChromaticGlitchTransition';
+export {MediaWindowCard, mediaWindowCardDurationSeconds} from './MediaWindowCard';
+export type {MediaWindowCardProps} from './MediaWindowCard';

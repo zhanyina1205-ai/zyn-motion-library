@@ -1,6 +1,6 @@
 # ZYN 镜头库 · ZYN Motion Library
 
-七个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**与**色差故障切镜**。
+八个可复用的 Remotion 镜头动效：**整体上滑**、**拍立得错落浮起**、**立体相册轮转**、**弧面叠卡快翻**、**剪贴物快切**、**缩略条展开卡片**、**色差故障切镜**与**画面收窗信息卡**。
 
 采用奶油白、淡粉、薄荷绿和柔和灰紫的默认示例风格。照片、标题、卡片内容与动画参数可以替换；示例素材为仓库内的通用 SVG，不包含个人照片。
 
@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 或 `ChromaticGlitchDemo`。示例均为 1920 × 1080 / 30fps。
+在 Remotion Studio 中打开 `WholePageSlideDemo`、`FloatingPolaroidsDemo`、`PerspectiveCarouselDemo`、`FlipCardStackDemo` 、`StickerSwapDemo`、`ThumbnailPanelDemo` 、`ChromaticGlitchDemo` 或 `MediaWindowCardDemo`。示例均为 1920 × 1080 / 30fps。
 
 ```bash
 npm run check
@@ -22,6 +22,7 @@ npm run render:stack
 npm run render:stickers
 npm run render:panel
 npm run render:glitch
+npm run render:window
 ```
 
 渲染输出位于 `previews/`。首次渲染时 Remotion 可自动下载浏览器，也可传入 `--browser-executable` 指定现有 Chromium。
@@ -284,3 +285,44 @@ const Cut = () => <ChromaticGlitchTransition {...options}
 总时长 = 前景停留 + 转场 + 后景停留，没有场景淡化重叠；秒数跟随 fps。图标在转场前 0.1 秒开始入场，转场后 0.35 秒开始下沉，0.65 秒后完全退出；需要完整图标退出时，`afterHoldSeconds` 至少为 1 秒。空间尺寸基于当前画布，图标进出距离自动跟随画布高度。
 
 实现使用按帧确定的正弦扰动和 CSS 叠色近似参考的 RGB 分离，不是原片滤镜算法；默认淡粉/薄荷配色遵循镜头库风格。两幕会克隆用于叠层和切片，应使用无音频、无副作用、无全局重复 DOM ID 的视觉 JSX；音频另外编排。图标素材放在 `public/icons/`，可用 CanvasImage 与 staticFile 引用。预设为 `presets/chromatic-glitch.json`。Demo `calculateMetadata` 随转场时长自动增加总帧数。运行 `npm run render:glitch`。
+
+## 08 · 画面收窗信息卡
+
+`MediaWindowCard` 把填满卡片的画面收成横向窗口，下移过冲后回稳，逐步揭示上方标题和下方说明卡。媒体内容保持同一个 JSX 实例，窗口持续改变尺寸，图片可用 `objectFit: 'cover'` 连续重构裁切。独立 Demo 逻辑时长 3.75 秒，取整为 113 帧 / 约 3.77 秒，1920×1080 / 30fps。
+
+```tsx
+import {CanvasImage, staticFile} from 'remotion';
+import {MediaWindowCard, mediaWindowCardDurationSeconds} from './motions';
+const options = {shrinkSeconds:0.55,settleSeconds:0.45,bounce:65};
+const Card = () => <MediaWindowCard {...options}
+  media={<CanvasImage src={staticFile('images/portrait.jpg')}
+    style={{width:'100%',height:'100%',objectFit:'cover',objectPosition:'50% 60%'}}/>}
+  headline={<div>04<br/>MOMENTS</div>}
+  caption={<p>这里替换说明文字</p>}/>;
+// 主 Composition 帧数 = Math.ceil(mediaWindowCardDurationSeconds(options) * fps - 1e-8)
+```
+
+| 参数 | 默认值 | 单位与作用 |
+|---|---|---|
+| media | 必填 | ReactNode，填满窗口的媒体内容；图片、视频或自己的图形 |
+| headline / caption | 无 | ReactNode，上方标题和下方说明，可自行控制字号与内容 |
+| centerX / centerY | 画布中心 | px，整个卡片的中心；Demo 为 1325 / 555 |
+| cardWidth / cardHeight | 580 / 780 | px，整个卡片尺寸 |
+| inset | 24 | px，收窗后的左右边距及说明卡边距 |
+| windowTop / windowHeight | 250 / 290 | px，最终媒体窗口的上边位置和高度 |
+| headlineTop | 45 | px，标题容器上边位置 |
+| captionTop / captionHeight | 570 / 160 | px，说明卡上边位置和高度 |
+| enterSeconds / fullHoldSeconds | 0.35 / 0.5 | 秒，整卡入场和完整画面停留 |
+| shrinkSeconds / settleSeconds | 0.55 / 0.45 | 秒，收窗和过冲后的回稳时间 |
+| captionDelaySeconds / captionRevealSeconds | 0.15 / 0.35 | 秒，收窗结束到说明卡开始的延迟、说明卡展开时间 |
+| holdSeconds / exitSeconds | 1.45 / 0.4 | 秒，回稳和说明展开完成后停留、整卡退出 |
+| bounce | 65 | px，下移过冲幅度；0 可关闭过冲 |
+| paper / captionColor | #eee6f2 / #f9e2ec | CSS 颜色，卡片背景和说明底色 |
+
+卡片内部的窗口、标题和说明位置均以卡片左上角为原点，`centerX / centerY` 使用 Composition 全局坐标。窗口底部不能超过说明卡上边，说明卡需位于底边距内；标题和说明内容仍需按所选字号自行适配。
+
+总时长 = `enterSeconds + fullHoldSeconds + shrinkSeconds + max(settleSeconds, captionDelaySeconds + captionRevealSeconds) + holdSeconds + exitSeconds`。回稳与说明展开同时进行，不能把两段全部相加。说明文字在说明展开后段出现，并多用约 0.12 秒淡入，默认停留已覆盖；标题在收窗后半段显现。秒数跟随 fps，Demo `calculateMetadata` 随收窗和回稳参数自动更新帧数。
+
+素材放入 `public/images/`；窗口内使用 `width/height:100%` 填充，并用 `objectPosition` 调整裁切焦点。其他画幅需同步调整卡片尺寸、窗口坐标与文字大小。组件使用一次衰减余弦近似参考回弹，真实缓动、裁切焦点和原片滤镜参数无法从单一录屏确定。预设见 `presets/media-window-card.json`，运行 `npm run render:window` 导出。
+
+本次参考后段与已有 **07 · 色差故障切镜** 相同，不增加重复镜头。衔接预设 `presets/media-window-glitch.json` 直接用于 `ChromaticGlitchTransition`，不是新增 Composition：前景停留 2.6 秒、转场 0.65 秒、后景停留 1.3 秒，总计 4.55 秒。自行提供 `before`、`after`、`badge` JSX；若前景使用 `MediaWindowCard`，转场会在前景卡片停留期间开始，以中点切镜覆盖其后续退出。对运动媒体和音轨，应避免把有副作用或音频的内容克隆进色差层，参见 07 的说明。公开Demo为自绘通用桌面 SVG，不包含参考中的人物、商标或音轨。

@@ -30,6 +30,7 @@
     "render:stack": "remotion render src/index.ts FlipCardStackDemo previews/curved-card-stack.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:stickers": "remotion render src/index.ts StickerSwapDemo previews/sticker-swap.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
     "render:panel": "remotion render src/index.ts ThumbnailPanelDemo previews/thumbnail-panel.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
-    "render:glitch": "remotion render src/index.ts ChromaticGlitchDemo previews/chromatic-glitch.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
+    "render:glitch": "remotion render src/index.ts ChromaticGlitchDemo previews/chromatic-glitch.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709",
+    "render:window": "remotion render src/index.ts MediaWindowCardDemo previews/media-window-card.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --color-space=bt709"
   }
 }

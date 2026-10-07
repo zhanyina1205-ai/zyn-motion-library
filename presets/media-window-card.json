@@ -1,0 +1,34 @@
+{
+  "id": "media-window-card",
+  "name": "画面收窗信息卡",
+  "composition": "MediaWindowCardDemo",
+  "params": {
+    "centerX": 1325,
+    "centerY": 555,
+    "cardWidth": 580,
+    "cardHeight": 780,
+    "inset": 24,
+    "windowTop": 250,
+    "windowHeight": 290,
+    "captionTop": 570,
+    "captionHeight": 160,
+    "headlineTop": 45,
+    "enterSeconds": 0.35,
+    "fullHoldSeconds": 0.5,
+    "shrinkSeconds": 0.55,
+    "settleSeconds": 0.45,
+    "captionDelaySeconds": 0.15,
+    "captionRevealSeconds": 0.35,
+    "holdSeconds": 1.45,
+    "exitSeconds": 0.4,
+    "bounce": 65,
+    "paper": "#eee6f2",
+    "captionColor": "#f9e2ec"
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30
+  },
+  "durationSeconds": 3.7666666666666666
+}

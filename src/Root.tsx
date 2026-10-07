@@ -1,3 +1,5 @@
+import {MediaWindowCardDemo} from './MediaWindowCardDemo';
+import {mediaWindowCardDurationSeconds} from './motions';
 import {ThumbnailPanelDemo} from './ThumbnailPanelDemo';
 import {ChromaticGlitchDemo} from './ChromaticGlitchDemo';
 import {thumbnailPanelDurationSeconds,chromaticGlitchDurationSeconds} from './motions';
@@ -26,4 +28,7 @@ export const MotionLibraryRoot=()=> <>
  <Composition id="ChromaticGlitchDemo" component={ChromaticGlitchDemo} width={1920} height={1080} fps={30} durationInFrames={96}
  defaultProps={{transitionSeconds:0.9,split:22,sliceShift:30}}
  calculateMetadata={({props})=>({durationInFrames:Math.ceil(chromaticGlitchDurationSeconds(props)*30-1e-8)})}/>
+ <Composition id="MediaWindowCardDemo" component={MediaWindowCardDemo} width={1920} height={1080} fps={30} durationInFrames={113}
+ defaultProps={{shrinkSeconds:0.55,settleSeconds:0.45,bounce:65}}
+ calculateMetadata={({props})=>({durationInFrames:Math.ceil(mediaWindowCardDurationSeconds(props)*30-1e-8)})}/>
 </>;
