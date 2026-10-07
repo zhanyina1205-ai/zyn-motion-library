@@ -1,4 +1,4 @@
-# Yina Motion Library
+# ZYN 镜头库 · ZYN Motion Library
 
 两个可复用的 Remotion 镜头动效：**整体上滑**与**拍立得错落浮起**。
 
