@@ -87,3 +87,7 @@ const Album=()=> <div style={{position:'absolute',inset:0,
 复制 `src/motions/`，使用与本项目相同版本的 `remotion`、`@remotion/transitions`、React。无需复制完整个人影片。
 
 依赖版本固定在 `package-lock.json` 中。已完成 TypeScript 编译、原模板独立渲染与全片解码验证。
+
+## 公开展示页
+
+[ZYN 镜头库](https://zyn-motion-library.zhanyina1205.chatgpt.site) 可直接分享给任何人查看。网页支持播放、重播、慢放、进度拖动与参数查看；网页源码和通用视频演示位于 `website/`。本 GitHub 仓库保持私有。
